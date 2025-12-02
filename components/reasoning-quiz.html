@@ -4,446 +4,271 @@
   <meta charset="UTF-8" />
   <title>Formative Activity – Reasoning Quiz | Research Methods e-Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Global styles -->
   <link rel="stylesheet" href="../style.css" />
 
-  <!-- Page-specific styling for the reasoning quiz -->
+  <!-- Page-specific tag styling (re-using your dark theme) -->
   <style>
-    :root {
-      --rq-bg: #f5f7fb;
-      --rq-card-bg: #ffffff;
-      --rq-text-main: #222;
-      --rq-text-muted: #555;
-      --rq-accent: #2f6feb;
-      --rq-border: #dde1ee;
-      --rq-deduction: #0f9d58;
-      --rq-deduction-soft: #e3f5ec;
-      --rq-induction: #f4b400;
-      --rq-induction-soft: #fff8e3;
-      --rq-radius-lg: 16px;
-      --rq-radius-sm: 12px;
+    .tag-deduction {
+      background: rgba(34, 197, 94, 0.16);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
     }
-
-    body {
-      background: var(--rq-bg);
-      color: var(--rq-text-main);
+    .tag-induction {
+      background: rgba(250, 204, 21, 0.16);
+      border: 1px solid rgba(250, 204, 21, 0.7);
+      color: #fef3c7;
     }
-
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
+    .tag-learning {
+      background: rgba(248, 113, 113, 0.16);
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      color: #fecaca;
     }
-
-    .rq-hero {
-      background: linear-gradient(135deg, #172b4d, #314e89);
-      color: #fff;
-      padding: 24px 24px 28px;
-      border-radius: var(--rq-radius-lg);
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .rq-hero-main h2 {
-      margin: 0 0 6px;
-      font-size: 1.7rem;
-    }
-
-    .rq-hero-main p {
-      margin: 2px 0;
-      font-size: 0.98rem;
-    }
-
-    .rq-hero-main .rq-tagline {
-      margin-top: 10px;
-      font-size: 0.96rem;
-      opacity: 0.95;
-    }
-
-    .rq-hero-side {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: var(--rq-radius-sm);
-      padding: 14px 16px;
-      font-size: 0.95rem;
-    }
-
-    .rq-hero-side h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 1.02rem;
-    }
-
-    .rq-hero-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px 14px;
-    }
-
-    .rq-hero-item-label {
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-
-    .rq-hero-item-value {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .rq-section-title {
-      margin-top: 26px;
-      margin-bottom: 10px;
-      font-size: 1.25rem;
-    }
-
-    .rq-section-intro {
-      margin: 0 0 14px;
-      color: var(--rq-text-muted);
-      font-size: 0.96rem;
-    }
-
-    .rq-questions {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 8px;
-    }
-
-    .rq-card {
-      background: var(--rq-card-bg);
-      border-radius: var(--rq-radius-sm);
-      border: 1px solid var(--rq-border);
-      padding: 16px 18px;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
-    }
-
-    .rq-card-header {
+    .card h3 {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 6px;
+      gap: 0.6rem;
     }
-
-    .rq-card-title {
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    .rq-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .rq-badge-deduction {
-      background: var(--rq-deduction-soft);
-      color: var(--rq-deduction);
-    }
-
-    .rq-badge-induction {
-      background: var(--rq-induction-soft);
-      color: var(--rq-induction);
-    }
-
-    .rq-badge-correct::before {
-      content: "✔";
-      font-size: 0.8rem;
-    }
-
-    .rq-badge-incorrect::before {
-      content: "✖";
-      font-size: 0.8rem;
-    }
-
-    .rq-question-text {
-      margin: 4px 0 10px;
-      font-size: 0.95rem;
-    }
-
-    .rq-meta {
-      font-size: 0.9rem;
-      margin: 0 0 6px;
-    }
-
-    .rq-meta strong {
-      font-weight: 600;
-    }
-
-    .rq-explanation {
-      font-size: 0.9rem;
-      color: var(--rq-text-muted);
-      margin: 4px 0 0;
-    }
-
-    .rq-reflection-card {
-      margin-top: 24px;
-      background: var(--rq-card-bg);
-      border-radius: var(--rq-radius-lg);
-      border: 1px solid var(--rq-border);
-      padding: 18px 20px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-    }
-
-    .rq-reflection-card h3 {
-      margin-top: 0;
-      margin-bottom: 6px;
-      font-size: 1.15rem;
-    }
-
-    .rq-reflection-card p {
-      margin: 4px 0;
-      font-size: 0.95rem;
-      color: var(--rq-text-muted);
-    }
-
-    .rq-back-link {
-      margin-top: 22px;
-      font-size: 0.92rem;
-    }
-
-    .rq-back-link a {
-      text-decoration: none;
-      color: var(--rq-accent);
+    .card h3 span.label {
+      font-size: 0.75rem;
       font-weight: 500;
-    }
-
-    .rq-back-link a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .rq-hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .rq-hero-side {
-        margin-top: 6px;
-      }
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <a href="../index.html" style="text-decoration:none; color:inherit;">
+  <!-- Top navigation bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
         <span class="brand-title">Research Methods & Professional Practice</span>
-        <span class="brand-subtitle">e-Portfolio – Component Page</span>
-      </a>
+        <span class="brand-subtitle">e-Portfolio – Formative Activity</span>
+      </div>
+      <nav class="nav">
+        <a href="../index.html#components">Back to Components</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="../index.html#components">Back to Components</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main class="page">
+  <main class="page">
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Formative Activity – Reasoning Quiz</h1>
+        <p>
+          This formative activity focuses on distinguishing between
+          <strong>deductive</strong> and <strong>inductive</strong> reasoning.
+          Below, I present each question, the correct classification, my answer,
+          and a brief explanation of the reasoning involved.
+        </p>
+      </div>
 
-  <!-- Hero / summary -->
-  <section class="section rq-hero">
-    <div class="rq-hero-main">
-      <h2>Formative Activity: Reasoning Quiz</h2>
-      <p><strong>Component:</strong> Formative Activity – Logical Reasoning</p>
-      <p><strong>Focus:</strong> Distinguishing deductive and inductive arguments</p>
-      <p class="rq-tagline">
-        This formative quiz assessed my ability to classify arguments as
-        <em>deductive</em> or <em>inductive</em> and explain the underlying reasoning.
-      </p>
-    </div>
-    <aside class="rq-hero-side">
-      <h3>At a glance</h3>
-      <div class="rq-hero-grid">
-        <div>
-          <div class="rq-hero-item-label">Score</div>
-          <div class="rq-hero-item-value">5 / 6 correct</div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <h2>Component</h2>
+          <p>Formative Activity – Reasoning Quiz</p>
         </div>
-        <div>
-          <div class="rq-hero-item-label">Module</div>
-          <div class="rq-hero-item-value">Knowledge Representation & Reasoning</div>
+        <div class="meta-card">
+          <h2>Module</h2>
+          <p>Knowledge Representation &amp; Reasoning</p>
         </div>
-        <div>
-          <div class="rq-hero-item-label">Reasoning types</div>
-          <div class="rq-hero-item-value">Deduction · Induction</div>
+        <div class="meta-card">
+          <h2>Score</h2>
+          <p>5 / 6 correct</p>
         </div>
-        <div>
-          <div class="rq-hero-item-label">Key learning</div>
-          <div class="rq-hero-item-value">Difference between certainty & generalisation</div>
+        <div class="meta-card">
+          <h2>Focus</h2>
+          <p>Deductive vs. Inductive Arguments</p>
         </div>
       </div>
-    </aside>
-  </section>
+    </section>
 
-  <!-- Questions & reasoning -->
-  <section class="section">
-    <h3 class="rq-section-title">Questions and reasoning</h3>
-    <p class="rq-section-intro">
-      Each card below summarises the question, the correct classification
-      (deductive or inductive), and a brief explanation of the reasoning.
-    </p>
+    <!-- Questions and reasoning -->
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Questions and reasoning</h2>
+        <p>
+          Each card summarises the question, the correct type of reasoning,
+          my answer, and a short explanation of why it is deductive or inductive.
+        </p>
+      </div>
 
-    <div class="rq-questions">
+      <div class="grid">
+        <!-- Question 1 -->
+        <article class="card">
+          <span class="tag tag-deduction">Deduction</span>
+          <h3>
+            Question 1
+            <span class="label">Correct</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> If A = B and B = C, then A = C.
+          </p>
+          <p class="meta">
+            <strong>My answer:</strong> Deduction (correct)
+          </p>
+          <p>
+            This is a classical logical rule. The conclusion follows necessarily
+            from the premises with no uncertainty, so it is a clear example of
+            <strong>deductive reasoning</strong>.
+          </p>
+        </article>
 
-      <!-- Q1 -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 1</div>
-          <div class="rq-badge rq-badge-deduction rq-badge-correct">
-            Deduction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          If A = B and B = C, then A = C.
-        </p>
-        <p class="rq-meta"><strong>My answer:</strong> Deduction (correct)</p>
-        <p class="rq-explanation">
-          This is a classical logical rule: the conclusion follows
-          necessarily from the premises. There is no uncertainty, so it
-          is an example of <strong>deductive reasoning</strong>.
-        </p>
-      </article>
+        <!-- Question 2 -->
+        <article class="card">
+          <span class="tag tag-deduction">Deduction</span>
+          <h3>
+            Question 2
+            <span class="label">Correct</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> Since all squares are rectangles, and all
+            rectangles have four sides, all squares have four sides.
+          </p>
+          <p class="meta">
+            <strong>My answer:</strong> Deduction (correct)
+          </p>
+          <p>
+            The argument applies general definitions (square → rectangle,
+            rectangle → four sides) to derive a necessary conclusion about
+            squares. Because the conclusion must be true if the premises are true,
+            this is <strong>deductive reasoning</strong>.
+          </p>
+        </article>
 
-      <!-- Q2 -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 2</div>
-          <div class="rq-badge rq-badge-deduction rq-badge-correct">
-            Deduction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          Since all squares are rectangles, and all rectangles have four sides,
-          all squares have four sides.
-        </p>
-        <p class="rq-meta"><strong>My answer:</strong> Deduction (correct)</p>
-        <p class="rq-explanation">
-          A general set of definitions is applied directly to squares.
-          Given the premises, the conclusion must be true; therefore,
-          this is <strong>deductive reasoning</strong>.
-        </p>
-      </article>
+        <!-- Question 3 -->
+        <article class="card">
+          <span class="tag tag-deduction">Deduction</span>
+          <h3>
+            Question 3
+            <span class="label">Correct</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> All cats have a keen sense of smell.
+            Fluffy is a cat, so Fluffy has a keen sense of smell.
+          </p>
+          <p class="meta">
+            <strong>My answer:</strong> Deduction (correct)
+          </p>
+          <p>
+            A general rule about all cats is applied to one specific cat
+            (Fluffy). Given the premise, the conclusion follows with certainty,
+            so this is a <strong>deductive</strong> argument.
+          </p>
+        </article>
 
-      <!-- Q3 -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 3</div>
-          <div class="rq-badge rq-badge-deduction rq-badge-correct">
-            Deduction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          All cats have a keen sense of smell. Fluffy is a cat, so Fluffy has
-          a keen sense of smell.
-        </p>
-        <p class="rq-meta"><strong>My answer:</strong> Deduction (correct)</p>
-        <p class="rq-explanation">
-          The argument applies a general rule about all cats to a specific
-          instance (Fluffy). The conclusion follows with certainty, which
-          makes this a <strong>deductive</strong> argument.
-        </p>
-      </article>
+        <!-- Question 4 - learning point -->
+        <article class="card">
+          <span class="tag tag-induction">Induction</span>
+          <span class="tag tag-learning" style="margin-top:0.4rem;">Learning point</span>
+          <h3>
+            Question 4
+            <span class="label">Incorrect originally</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> Every time you eat peanuts, your throat
+            swells and you can’t breathe. This is a symptom of people who are
+            allergic to peanuts. Therefore, you are allergic to peanuts.
+          </p>
+          <p class="meta">
+            <strong>My original answer:</strong> Deduction (incorrect)
+            <br />
+            <strong>Correct classification:</strong> Induction
+          </p>
+          <p>
+            The conclusion is based on repeated observations of a pattern
+            (whenever peanuts are eaten, swelling occurs) and on a medical
+            symptom. It generalises from experience to a probable conclusion,
+            rather than applying a strict universal rule. For this reason,
+            the argument is <strong>inductive</strong> rather than deductive.
+          </p>
+          <p>
+            <strong>What I learned:</strong> even when the evidence is strong,
+            reasoning is still inductive if it relies on patterns and
+            observations rather than on formal logical rules.
+          </p>
+        </article>
 
-      <!-- Q4 (learning point) -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 4 – Learning point</div>
-          <div class="rq-badge rq-badge-induction rq-badge-incorrect">
-            Induction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          Every time you eat peanuts, your throat swells and you can’t breathe.
-          This is a symptom of people who are allergic to peanuts. Therefore,
-          you are allergic to peanuts.
-        </p>
-        <p class="rq-meta">
-          <strong>My original answer:</strong> Deduction (incorrect) <br />
-          <strong>Correct classification:</strong> Induction
-        </p>
-        <p class="rq-explanation">
-          The conclusion is based on repeated observations of a pattern and a
-          medical symptom, rather than on a universal rule that applies to all
-          people. It generalises from experience to a probable conclusion, so
-          it is <strong>inductive reasoning</strong> rather than deductive.
-          I learned that even very strong evidence can still be inductive if
-          it relies on patterns instead of strict logical rules.
-        </p>
-      </article>
+        <!-- Question 5 -->
+        <article class="card">
+          <span class="tag tag-deduction">Deduction</span>
+          <h3>
+            Question 5
+            <span class="label">Correct</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> Tony is a football player. All football
+            players weigh more than 170 pounds. Therefore, Tony weighs more
+            than 170 pounds.
+          </p>
+          <p class="meta">
+            <strong>My answer:</strong> Deduction (correct)
+          </p>
+          <p>
+            A general statement about all football players is applied directly to
+            Tony. If the premise is accepted, the conclusion must be true, so this
+            is an example of <strong>deductive reasoning</strong>.
+          </p>
+        </article>
 
-      <!-- Q5 -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 5</div>
-          <div class="rq-badge rq-badge-deduction rq-badge-correct">
-            Deduction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          Tony is a football player. All football players weigh more than
-          170 pounds. Therefore, Tony weighs more than 170 pounds.
-        </p>
-        <p class="rq-meta"><strong>My answer:</strong> Deduction (correct)</p>
-        <p class="rq-explanation">
-          A general statement about all football players is applied directly
-          to Tony. If the premise is accepted, the conclusion must be true,
-          which makes this a <strong>deductive</strong> argument.
-        </p>
-      </article>
+        <!-- Question 6 -->
+        <article class="card">
+          <span class="tag tag-induction">Induction</span>
+          <h3>
+            Question 6
+            <span class="label">Correct</span>
+          </h3>
+          <p>
+            <strong>Statement:</strong> All cars in this town drive on the right
+            side of the street. Therefore, all cars in all towns drive on the
+            right side of the street.
+          </p>
+          <p class="meta">
+            <strong>My answer:</strong> Induction (correct)
+          </p>
+          <p>
+            The argument overgeneralises from a local observation (one town) to a
+            universal claim (all towns). It extends limited evidence to a broad
+            conclusion, which is typical of <strong>inductive reasoning</strong>.
+          </p>
+        </article>
+      </div>
+    </section>
 
-      <!-- Q6 -->
-      <article class="rq-card">
-        <div class="rq-card-header">
-          <div class="rq-card-title">Question 6</div>
-          <div class="rq-badge rq-badge-induction rq-badge-correct">
-            Induction
-          </div>
-        </div>
-        <p class="rq-question-text">
-          All cars in this town drive on the right side of the street.
-          Therefore, all cars in all towns drive on the right side of the street.
-        </p>
-        <p class="rq-meta"><strong>My answer:</strong> Induction (correct)</p>
-        <p class="rq-explanation">
-          The argument overgeneralises from one town to every town. It extends
-          a limited observation to a broad conclusion, which is typical of
-          <strong>inductive reasoning</strong>.
-        </p>
-      </article>
+    <!-- Reflection section -->
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Reflection</h2>
+        <p>A brief reflection on what I learned from this activity.</p>
+      </div>
+      <p>
+        This formative quiz helped me sharpen the distinction between
+        <strong>deductive</strong> and <strong>inductive</strong> reasoning.
+        Deductive arguments produce conclusions that follow necessarily
+        from their premises, while inductive arguments move from patterns
+        and observations to probable conclusions.
+      </p>
+      <p>
+        Question 4 was especially valuable as a learning point. Although the
+        evidence was strong, the reasoning was still inductive because it
+        relied on repeated experience rather than a formal rule that applies
+        to everyone. This insight will support my future work in knowledge
+        representation and logical argumentation, where correctly classifying
+        the type of reasoning is essential.
+      </p>
+    </section>
 
-    </div>
-  </section>
+    <!-- Back link -->
+    <section class="section">
+      <a href="../index.html#components" class="nav-link">
+        &larr; Back to e-Portfolio components
+      </a>
+    </section>
+  </main>
 
-  <!-- Reflection -->
-  <section class="section rq-reflection-card">
-    <h3>Reflection</h3>
-    <p>
-      This formative activity sharpened my ability to distinguish between
-      deductive and inductive arguments. I confirmed that deductive reasoning
-      produces conclusions that follow necessarily from their premises, while
-      inductive reasoning draws probable conclusions from patterns and
-      observations.
-    </p>
-    <p>
-      Question 4 was particularly useful: although the evidence was strong,
-      the conclusion was still inductive because it relied on repeated
-      experience rather than a formal rule. This insight will help me build
-      stronger, better justified arguments in future work on knowledge
-      representation and logical reasoning.
-    </p>
-  </section>
-
-  <div class="rq-back-link">
-    <a href="../index.html#components">&larr; Back to e-Portfolio home</a>
-  </div>
-
-</main>
-
-<footer class="footer">
-  <p>&copy; 2025 Abdullah Alshibli · Research Methods & Professional Practice e-Portfolio</p>
-</footer>
+  <footer class="footer">
+    <p>&copy; 2025 Abdullah Alshibli · Research Methods &amp; Professional Practice e-Portfolio</p>
+  </footer>
 </body>
 </html>
