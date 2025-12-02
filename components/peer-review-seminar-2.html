@@ -2,106 +2,196 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Seminar 2 – Research Methods Comparison Activity</title>
+  <title>Seminar 2 – Research Methods Comparison – Research Methods e-Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Use your existing module styles -->
   <link rel="stylesheet" href="../style.css" />
 
+  <!-- Page-specific layout for two-column design (matching main layout components) -->
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    .cd-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 1.8rem;
+      margin-top: 2.2rem;
+      align-items: flex-start;
     }
 
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1rem 2rem;
+    .cd-sidebar {
+      position: sticky;
+      top: 4.5rem;
+      align-self: flex-start;
+      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
     }
 
-    header.page-header {
-      margin-bottom: 1.8rem;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      padding-bottom: 0.8rem;
-    }
-
-    .page-eyebrow {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: #9ca3af;
+    .cd-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
       margin-bottom: 0.3rem;
     }
 
-    .page-title {
-      font-size: clamp(1.7rem, 3vw, 2.1rem);
-      margin: 0 0 0.35rem;
+    .cd-sidebar-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
     }
 
-    .page-subtitle {
+    .cd-sidebar-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1rem 0 0.4rem;
+    }
+
+    .cd-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .cd-tag-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .cd-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cd-nav li {
+      margin-bottom: 0.15rem;
+    }
+
+    .cd-nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .cd-nav a span.badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .cd-nav a:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      transform: translateX(1px);
+    }
+
+    .cd-sidebar-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .cd-sidebar-footer strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cd-content-header-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cd-content-header-title {
+      font-size: clamp(1.7rem, 3vw, 2rem);
+      margin: 0 0 0.25rem;
+    }
+
+    .cd-content-header-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .cd-content {
+      min-width: 0;
+    }
+
+    .section {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-header {
+      margin-bottom: 1rem;
+    }
+
+    .section-intro {
       font-size: 0.9rem;
-      color: #9ca3af;
-      margin: 0 0 0.4rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
     }
 
-    .page-meta {
-      font-size: 0.82rem;
-      color: #9ca3af;
-    }
-
-    section.section-block {
-      margin-bottom: 2rem;
-    }
-
-    section.section-block > h2 {
-      font-size: 1.1rem;
-      margin: 0 0 0.4rem;
-    }
-
-    section.section-block > p.section-intro {
-      font-size: 0.88rem;
-      color: #9ca3af;
-      margin: 0 0 0.7rem;
-    }
-
-    /* Table styling */
-    .table-block {
+    .cd-table-block {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.84rem;
-      margin-bottom: 0.4rem;
+      font-size: 0.82rem;
       background: rgba(15, 23, 42, 0.9);
       border-radius: 0.75rem;
       overflow: hidden;
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
     }
 
-    .table-block caption {
+    .cd-table-block caption {
       text-align: left;
       padding: 0.75rem 0.9rem;
       font-weight: 600;
       font-size: 0.9rem;
       background: rgba(17, 24, 39, 0.97);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+      border-bottom: 1px solid var(--border);
     }
 
-    .table-block th,
-    .table-block td {
-      padding: 0.65rem 0.75rem;
+    .cd-table-block th,
+    .cd-table-block td {
+      padding: 0.6rem 0.7rem;
       border-bottom: 1px solid rgba(31, 41, 55, 0.85);
       vertical-align: top;
     }
 
-    .table-block th {
+    .cd-table-block th {
       text-align: left;
       background: rgba(15, 23, 42, 0.98);
       font-weight: 600;
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.09em;
-      color: #9ca3af;
+      color: var(--muted);
     }
 
-    .table-block tr:last-child td {
+    .cd-table-block tr:last-child td {
       border-bottom: none;
     }
 
@@ -111,284 +201,362 @@
 
     .small-note {
       font-size: 0.8rem;
-      color: #9ca3af;
+      color: var(--muted);
       margin-top: 0.3rem;
     }
 
-    @media (max-width: 720px) {
-      .table-block,
-      .table-block th,
-      .table-block td {
-        font-size: 0.8rem;
+    @media (max-width: 880px) {
+      .cd-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cd-sidebar {
+        position: static;
       }
     }
   </style>
 </head>
 <body>
-<main>
-  <header class="page-header">
-    <div class="page-eyebrow">Seminar 2 – Activity</div>
-    <h1 class="page-title">Research Methods Comparison for Two AI Papers</h1>
-    <p class="page-subtitle">
-      This page presents my preparation for Seminar 2, where I analysed two AI-related Computing papers
-      that use different research methods.
-    </p>
-    <p class="page-meta">
-      The analysis is organised into separate tables following the seminar questions on purpose, methodology,
-      data collection and analysis, evidence, and possible enhancements.
-    </p>
-  </header>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <a href="../index.html" style="text-decoration:none; color:inherit;">
+        <span class="brand-title">Research Methods &amp; Professional Practice</span>
+        <span class="brand-subtitle">e-Portfolio – Component Page</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="../index.html#components">Back to Components</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- TABLE 1: PURPOSE / ALIGNMENT -->
-  <section class="section-block" id="q1">
-    <h2>1. Purpose, Problem, Objective &amp; Alignment with My Experience</h2>
-    <p class="section-intro">
-      This table summarises the purpose and objectives of each paper and explains how they align with my own
-      experience and interests in AI and Computing.
-    </p>
+<main class="page">
+  <div class="cd-layout">
+    <!-- SIDEBAR -->
+    <aside class="cd-sidebar">
+      <div class="cd-tag-pill">
+        <span class="dot"></span>
+        <span>Seminar Activity</span>
+      </div>
+      <div class="cd-sidebar-title">Seminar 2: Research Methods Comparison</div>
+      <div class="cd-sidebar-subtitle">
+        Analysis of two AI-related Computing papers using different research methods.
+      </div>
 
-    <table class="table-block">
-      <caption>Table 1. Purpose, Problem, Objective and Alignment</caption>
-      <thead>
-        <tr>
-          <th>Paper</th>
-          <th>Purpose / Problem / Objective</th>
-          <th>Alignment with My Experience / Thoughts</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="paper-name">
-            Paper 1: Artificial Intelligence in Management Studies (2021–2025):<br />
-            A Bibliometric Mapping of Themes, Trends, and Global Contributions
-          </td>
-          <td>
-            The paper aims to map research on Artificial Intelligence in management between 2021 and 2025. It identifies
-            themes, trends, leading countries, authors and keyword clusters by using bibliometric indicators.
-            The focus is on understanding how AI in management has evolved and which topics dominate the field.
-          </td>
-          <td>
-            This aligns with my experience because I work with AI in real organisations and public-sector projects.
-            Knowing global research trends in AI management helps me understand where research and practice are heading,
-            and how my own work in AI-based systems fits into the wider body of knowledge.
-          </td>
-        </tr>
-        <tr>
-          <td class="paper-name">
-            Paper 2: Prospects and Challenges of the Impact of Artificial Intelligence and Machine Learning
-            on Social and Economic Progress
-          </td>
-          <td>
-            The purpose of this paper is to examine how AI and machine learning influence economic development and
-            social structures. It looks at opportunities and risks, and studies the relationship between AI readiness
-            levels and economic indicators such as GDP through empirical analysis.
-          </td>
-          <td>
-            This connects strongly with my interests, as I am involved in AI projects that affect public services,
-            policy and digital transformation. The focus on AI readiness, economic impact and social implications
-            matches my thinking about how AI should be adopted responsibly at national and organisational levels.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <div class="cd-sidebar-section-title">Sections</div>
+      <ul class="cd-nav">
+        <li><a href="#overview">Overview <span class="badge">Start</span></a></li>
+        <li><a href="#q1">Q1: Purpose &amp; Alignment <span class="badge">Table 1</span></a></li>
+        <li><a href="#q2">Q2: Methodology <span class="badge">Table 2</span></a></li>
+        <li><a href="#q3">Q3: Data &amp; Analysis <span class="badge">Table 3</span></a></li>
+        <li><a href="#q4">Q4: Evidence <span class="badge">Table 4</span></a></li>
+        <li><a href="#q5">Q5: Enhancements <span class="badge">Table 5</span></a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
 
-  <!-- TABLE 2: METHODOLOGY APPROPRIATENESS -->
-  <section class="section-block" id="q2">
-    <h2>2. Appropriateness of the Research Methodology</h2>
-    <p class="section-intro">
-      The table below evaluates whether the chosen research methodology in each paper is suitable for the stated
-      purpose or research question.
-    </p>
+      <div class="cd-sidebar-section-title">Student</div>
+      <div class="cd-sidebar-footer">
+        <div><strong>Name:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
+        <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
+        <div><strong>Institution:</strong> University of Essex Online</div>
+      </div>
+    </aside>
 
-    <table class="table-block">
-      <caption>Table 2. Research Methodology and Its Appropriateness</caption>
-      <thead>
-        <tr>
-          <th>Paper</th>
-          <th>Research Method Used</th>
-          <th>Is the Methodology Appropriate? (Justification)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="paper-name">Paper 1</td>
-          <td>
-            The paper uses a <strong>quantitative bibliometric method</strong>. It collects publication data from a
-            database (e.g. Scopus), counts documents, citations and keywords, and applies bibliometric tools to
-            generate maps of themes, trends and collaborations.
-          </td>
-          <td>
-            Yes, this methodology is appropriate. The research question focuses on “what are the themes and trends”
-            in the literature, which is essentially a descriptive and quantitative question. Bibliometric analysis is
-            the standard way to measure research output and thematic patterns, so it matches the purpose well.
-          </td>
-        </tr>
-        <tr>
-          <td class="paper-name">Paper 2</td>
-          <td>
-            The paper uses a <strong>mixed-method approach</strong>. It combines a qualitative literature review
-            (to identify theoretical perspectives, opportunities and challenges) with quantitative statistical
-            analysis (e.g. correlation between AI readiness scores and GDP).
-          </td>
-          <td>
-            Yes, this methodology is appropriate. The topic concerns both conceptual issues (social and economic
-            implications) and measurable relationships (AI readiness and economic performance). Mixed methods provide
-            a broader and deeper view than a single method and align with the paper’s aim of capturing both theory
-            and empirical evidence.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <!-- MAIN CONTENT -->
+    <section class="cd-content">
+      <!-- HEADER -->
+      <section class="section">
+        <div class="section-header">
+          <div class="cd-content-header-eyebrow">Seminar 2 – Activity</div>
+          <h2 class="cd-content-header-title">Research Methods Comparison for Two AI Papers</h2>
+          <p class="cd-content-header-meta">
+            This page presents my preparation for Seminar 2, where I analysed two Computing papers on Artificial Intelligence
+            that use different research methods. The answers are structured into separate tables based on the seminar questions.
+          </p>
+        </div>
+      </section>
 
-  <!-- TABLE 3: DATA COLLECTION & ANALYSIS -->
-  <section class="section-block" id="q3">
-    <h2>3. Data Collection and Analysis – Are They Appropriate?</h2>
-    <p class="section-intro">
-      This table reviews the types of data used in each paper and the analysis techniques, and evaluates whether
-      they are suitable for answering the research questions.
-    </p>
+      <!-- OVERVIEW -->
+      <section id="overview" class="section">
+        <p class="section-intro">
+          I selected two recent AI-related papers in Computing. The first uses a quantitative bibliometric approach to map
+          research trends in AI and management. The second uses a mixed-method approach to examine the impact of AI and
+          machine learning on social and economic progress. Below, each seminar question is answered in its own comparison
+          table to keep the analysis clear and easy to follow.
+        </p>
+      </section>
 
-    <table class="table-block">
-      <caption>Table 3. Appropriateness of Data Collection and Analysis</caption>
-      <thead>
-        <tr>
-          <th>Paper</th>
-          <th>Data Collection</th>
-          <th>Data Analysis</th>
-          <th>Appropriateness for the Purpose / Question</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="paper-name">Paper 1</td>
-          <td>
-            Uses secondary data from a bibliographic database, filtered by year, subject area and other criteria.
-            The dataset consists of AI-related management publications from 2021–2025.
-          </td>
-          <td>
-            Applies bibliometric analysis and visualisation tools (e.g. counting publications per year, analysing
-            citations, mapping co-occurring keywords and co-authorship networks).
-          </td>
-          <td>
-            This is appropriate because the aim is to describe patterns in the existing literature, not to collect
-            new primary data. The combination of database filtering and bibliometric statistics is well suited to
-            mapping research themes and trends at scale.
-          </td>
-        </tr>
-        <tr>
-          <td class="paper-name">Paper 2</td>
-          <td>
-            Uses secondary data such as AI readiness indices and economic indicators like GDP, along with published
-            research and policy documents to provide context.
-          </td>
-          <td>
-            Employs statistical analysis (for example, Pearson correlation) to explore the relationship between AI
-            readiness and economic performance, supported by qualitative interpretation from the literature review.
-          </td>
-          <td>
-            This combination is suitable for the research aims. Correlation analysis is appropriate for studying
-            how two measurable variables are related, while the literature review helps interpret the results and
-            situate them in a broader social and economic context. It also respects the limits of correlation
-            (showing association, not causation).
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <!-- Q1 TABLE -->
+      <section id="q1" class="section">
+        <h3>1. Purpose, Problem, Objective &amp; Alignment with My Experience</h3>
+        <p class="section-intro">
+          This table summarises the purpose and objectives of each paper and explains how they relate to my own experience
+          and thoughts on AI in Computing.
+        </p>
 
-  <!-- TABLE 4: EVIDENCE SUPPORT -->
-  <section class="section-block" id="q4">
-    <h2>4. Support for Claims and Conclusions</h2>
-    <p class="section-intro">
-      Here I assess whether each paper supports its claims and conclusions with clear arguments and evidence.
-    </p>
+        <table class="cd-table-block">
+          <caption>Table 1. Purpose, Problem, Objective and Alignment</caption>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Purpose / Problem / Objective</th>
+              <th>Alignment with My Experience / Thoughts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="paper-name">
+                Paper 1: Artificial Intelligence in Management Studies (2021–2025):<br />
+                A Bibliometric Mapping of Themes, Trends, and Global Contributions
+              </td>
+              <td>
+                The paper aims to map research on Artificial Intelligence in management from 2021 to 2025. It identifies
+                key themes, trends, leading countries, authors and keyword clusters using bibliometric indicators. The main
+                objective is to describe how AI-related management research has evolved and which topics dominate the field.
+              </td>
+              <td>
+                This aligns with my experience because I work with AI in real organisational and public-sector contexts.
+                Understanding global research trends helps me see how my own AI work (e.g. decision-support systems,
+                municipal AI projects) fits into the broader research landscape and where gaps or opportunities may exist.
+              </td>
+            </tr>
+            <tr>
+              <td class="paper-name">
+                Paper 2: Prospects and Challenges of the Impact of Artificial Intelligence and Machine Learning
+                on Social and Economic Progress
+              </td>
+              <td>
+                The purpose of this paper is to examine how AI and machine learning influence economic development and
+                social structures. It discusses opportunities and risks, and empirically explores the relationship between
+                AI readiness levels and economic indicators such as GDP.
+              </td>
+              <td>
+                This connects strongly with my interests because I am involved in AI projects that affect public services,
+                digital transformation and policy. The focus on AI readiness, economic impact and social implications
+                matches my thinking about how AI should be adopted responsibly at national and organisational levels.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <table class="table-block">
-      <caption>Table 4. Support for Claims and Conclusions</caption>
-      <thead>
-        <tr>
-          <th>Paper</th>
-          <th>Does the Paper Support Its Claims?</th>
-          <th>Type of Evidence / Argumentation</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="paper-name">Paper 1</td>
-          <td>
-            Yes. The claims about growth in publications, dominant themes, and leading countries or authors are
-            backed by quantitative evidence.
-          </td>
-          <td>
-            The paper presents numeric results (counts, citation metrics), charts showing trends over time, and
-            visual maps of keywords and networks. The discussion links these findings back to the research questions
-            and explains what the patterns suggest about AI in management.
-          </td>
-        </tr>
-        <tr>
-          <td class="paper-name">Paper 2</td>
-          <td>
-            Yes. The conclusions about the impact of AI and ML on social and economic progress are supported by a
-            mix of empirical results and theoretical discussion.
-          </td>
-          <td>
-            The paper uses correlation tables to show relationships between AI readiness and GDP, and combines these
-            with literature-based arguments about opportunities (e.g. productivity) and risks (e.g. inequality,
-            job displacement). This gives the reader both numerical and conceptual support for the claims.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <!-- Q2 TABLE -->
+      <section id="q2" class="section">
+        <h3>2. Appropriateness of the Research Methodology</h3>
+        <p class="section-intro">
+          The following table evaluates whether the research methodology used in each paper is suitable for the stated
+          purpose or research question, based on the definitions of qualitative, quantitative and mixed methods introduced
+          in the seminars.
+        </p>
 
-  <!-- TABLE 5: ENHANCEMENTS -->
-  <section class="section-block" id="q5">
-    <h2>5. How I Would Enhance Each Paper</h2>
-    <p class="section-intro">
-      Finally, this table lists my suggestions for improving or extending the work in each paper.
-    </p>
+        <table class="cd-table-block">
+          <caption>Table 2. Research Methodology and Its Appropriateness</caption>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Research Method Used</th>
+              <th>Is the Methodology Appropriate? (Justification)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="paper-name">Paper 1</td>
+              <td>
+                The study uses a <strong>quantitative bibliometric method</strong>. It collects publication data from a
+                bibliographic database (such as Scopus), and applies bibliometric tools to count documents, analyse citations,
+                and generate maps of themes, trends and collaborations.
+              </td>
+              <td>
+                Yes, the methodology is appropriate. The research question is descriptive and focuses on “what are the themes,
+                trends and global contributions?”. This is best answered using numerical evidence about publications and
+                keywords. Bibliometric analysis is the standard quantitative approach for mapping research fields, so it
+                fits the purpose very well.
+              </td>
+            </tr>
+            <tr>
+              <td class="paper-name">Paper 2</td>
+              <td>
+                The paper uses a <strong>mixed-method approach</strong>. It combines a qualitative literature review
+                (to understand theoretical perspectives, opportunities and challenges) with quantitative statistical analysis
+                (e.g. correlation between AI readiness indices and GDP).
+              </td>
+              <td>
+                Yes, the methodology is appropriate. The topic involves both conceptual issues (ethics, social impact,
+                economic implications) and measurable relationships (AI readiness and economic indicators). Mixed methods
+                are well suited to this, as they allow the authors to link theory and empirical data. A single method
+                would not capture the topic as completely.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-    <table class="table-block">
-      <caption>Table 5. Suggested Enhancements to the Papers</caption>
-      <thead>
-        <tr>
-          <th>Paper</th>
-          <th>Suggested Enhancements</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="paper-name">Paper 1</td>
-          <td>
-            <ul>
-              <li>Add qualitative insights, such as expert interviews, to explain <em>why</em> certain themes and countries dominate.</li>
-              <li>Discuss limitations more explicitly, e.g. database coverage, language restrictions or document-type filters.</li>
-              <li>Include forward-looking analysis, such as predicting future trends in AI management research.</li>
-              <li>Provide clearer managerial implications, linking the mapped themes to practical decision-making in organisations.</li>
-            </ul>
-          </td>
-        </tr>
-        <tr>
-          <td class="paper-name">Paper 2</td>
-          <td>
-            <ul>
-              <li>Move beyond simple correlation by using regression or models that include more variables (education, R&amp;D, digital infrastructure).</li>
-              <li>Incorporate case studies of specific countries or sectors to illustrate how AI readiness translates into real outcomes.</li>
-              <li>Add primary data (e.g. interviews or surveys with policymakers or practitioners) to validate and enrich the quantitative findings.</li>
-              <li>Strengthen the limitations section, especially around the use of secondary data and the fact that correlation does not prove causation.</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Q3 TABLE -->
+      <section id="q3" class="section">
+        <h3>3. Data Collection and Analysis – Are They Appropriate?</h3>
+        <p class="section-intro">
+          This table reviews what kinds of data each paper uses, how the data are analysed, and whether these choices
+          are suitable for answering the research questions.
+        </p>
 
-    <p class="small-note">
-      These enhancements are based on the research-methods principles from the module, including the importance of
-      triangulation, clear limitation statements, and alignment between questions, methods and evidence.
-    </p>
-  </section>
+        <table class="cd-table-block">
+          <caption>Table 3. Appropriateness of Data Collection and Analysis</caption>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Data Collection</th>
+              <th>Data Analysis</th>
+              <th>Appropriateness for the Purpose / Question</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="paper-name">Paper 1</td>
+              <td>
+                The authors rely on secondary data from a bibliographic database. They filter AI-related management
+                publications by year (2021–2025), subject area and other criteria to build the dataset used for analysis.
+              </td>
+              <td>
+                They apply bibliometric techniques and visualisation tools to examine publication counts per year, citation
+                patterns, keyword co-occurrence and co-authorship networks. The results are presented in tables and maps.
+              </td>
+              <td>
+                This is appropriate because the aim is to describe how the literature is structured, not to collect new
+                primary data. Bibliographic databases and bibliometric analysis are suitable for studying large bodies of
+                research and identifying patterns across them.
+              </td>
+            </tr>
+            <tr>
+              <td class="paper-name">Paper 2</td>
+              <td>
+                The paper uses secondary data such as AI readiness indices, economic indicators (e.g. GDP) and published
+                literature (research articles, reports, policy documents) to frame the discussion.
+              </td>
+              <td>
+                The authors employ statistical techniques (for example, correlation analysis) to explore the relationship
+                between AI readiness and GDP, and they interpret these findings using insights from the literature review.
+              </td>
+              <td>
+                This combination is suitable for the research aims. Correlation analysis is an appropriate way to examine
+                associations between quantitative variables, while the literature review helps to interpret what these
+                relationships might mean socially and economically. The approach also recognises that correlation shows
+                association rather than causation.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Q4 TABLE -->
+      <section id="q4" class="section">
+        <h3>4. Support for Claims and Conclusions</h3>
+        <p class="section-intro">
+          The next table considers whether each paper supports its claims and conclusions with explicit arguments
+          and evidence.
+        </p>
+
+        <table class="cd-table-block">
+          <caption>Table 4. Support for Claims and Conclusions</caption>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Does the Paper Support Its Claims?</th>
+              <th>Type of Evidence / Argumentation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="paper-name">Paper 1</td>
+              <td>
+                Yes. The conclusions about research growth, dominant themes and leading contributors are backed by
+                clear quantitative results.
+              </td>
+              <td>
+                The paper presents numerical tables, charts and visual maps showing publication trends, keyword clusters
+                and citation relationships. The authors then interpret these results and link them back to the aims of the
+                study, explaining what the patterns suggest about AI in management.
+              </td>
+            </tr>
+            <tr>
+              <td class="paper-name">Paper 2</td>
+              <td>
+                Yes. The conclusions about the impact of AI and ML on social and economic progress are supported through
+                a combination of empirical findings and theoretical reasoning.
+              </td>
+              <td>
+                The paper provides correlation results between AI readiness and GDP, and complements these with discussions
+                drawn from prior research on productivity, innovation, inequality and labour market effects. This mix of
+                data and theory offers explicit support for the authors’ claims, while also acknowledging challenges and risks.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Q5 TABLE -->
+      <section id="q5" class="section">
+        <h3>5. How I Would Enhance Each Paper</h3>
+        <p class="section-intro">
+          Finally, this table outlines how I would enhance or extend each paper, based on my understanding of research
+          methods and good academic practice.
+        </p>
+
+        <table class="cd-table-block">
+          <caption>Table 5. Suggested Enhancements to the Papers</caption>
+          <thead>
+            <tr>
+              <th>Paper</th>
+              <th>Suggested Enhancements</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="paper-name">Paper 1</td>
+              <td>
+                <ul>
+                  <li>Add qualitative insights (for example, expert interviews) to help explain <em>why</em> certain themes, countries or authors dominate.</li>
+                  <li>Include a clearer discussion of limitations, such as database coverage, language filters and document-type restrictions.</li>
+                  <li>Extend the analysis with simple forecasting to show possible future trends in AI management research.</li>
+                  <li>Provide stronger practical implications for managers, explaining how they might use the mapped themes to guide AI strategy.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="paper-name">Paper 2</td>
+              <td>
+                <ul>
+                  <li>Move beyond simple correlation by using regression or models that include additional variables (e.g. education level, R&amp;D spending, digital infrastructure).</li>
+                  <li>Add case studies of specific countries or sectors to illustrate how AI readiness translates into real socio-economic outcomes.</li>
+                  <li>Incorporate primary data, such as interviews or surveys with policymakers or practitioners, to validate and enrich the secondary data.</li>
+                  <li>Strengthen the limitations section, especially on the use of secondary indicators and the fact that correlation does not prove causation.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="small-note">
+          These enhancements are based on principles covered in the seminars, including the value of mixed evidence,
+          transparent limitations, and ensuring strong alignment between research questions, methods and conclusions.
+        </p>
+      </section>
+
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <h3>References (UoEO Harvard Style – examples)</h3>
+        <p class="section-intro">
+          Below are example references that could be included when citing the two papers and core research methods texts.
+          You can adjust them to match the exact details of the articles you used.
+        </p>
+
+      </section>
+    </section>
+  </div>
 </main>
+
+<footer class="footer">
+  <p>&copy; 2025 Abdullah Alshibli · Research Methods &amp; Professional Practice e-Portfolio</p>
+</footer>
 </body>
 </html>
