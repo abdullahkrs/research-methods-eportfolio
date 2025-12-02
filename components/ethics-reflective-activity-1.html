@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reflective Activity 1 – Ethics in Computing in the Age of Generative AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- Page-specific layout for two-column design (same as collaborative-discussion-1 (1).html) -->
+  <style>
+    .cd-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 1.8rem;
+      margin-top: 2.2rem;
+      align-items: flex-start;
+    }
+
+    .cd-sidebar {
+      position: sticky;
+      top: 4.5rem;
+      align-self: flex-start;
+      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .cd-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .cd-sidebar-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .cd-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .cd-tag-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .cd-sidebar-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1rem 0 0.4rem;
+    }
+
+    .cd-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cd-nav li {
+      margin-bottom: 0.15rem;
+    }
+
+    .cd-nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .cd-nav a span.badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .cd-nav a:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      transform: translateX(1px);
+    }
+
+    .cd-sidebar-footer {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .cd-content-header-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cd-content-header-title {
+      margin: 0 0 0.35rem;
+      font-size: 1.4rem;
+    }
+
+    .cd-content-header-meta {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .cd-pill-row {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .cd-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .cd-badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .cd-badge-soft span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .cd-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .cd-card-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .cd-lead {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .cd-accent-box {
+      margin-top: 0.7rem;
+      padding: 0.75rem 0.8rem;
+      border-radius: 0.8rem;
+      border: 1px dashed var(--border);
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.16), transparent);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .cd-lo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    .cd-lo-table th,
+    .cd-lo-table td {
+      padding: 0.55rem 0.6rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .cd-lo-table th {
+      text-align: left;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .cd-ref-list {
+      font-size: 0.82rem;
+      padding-left: 1.1rem;
+    }
+
+    .cd-ref-list li {
+      margin-bottom: 0.35rem;
+    }
+
+    @media (max-width: 880px) {
+      .cd-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cd-sidebar {
+        position: static;
+      }
+
+      .cd-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <a href="../index.html" style="text-decoration:none; color:inherit;">
+        <span class="brand-title">Research Methods & Professional Practice</span>
+        <span class="brand-subtitle">e-Portfolio – Component Page</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="../index.html#components">Back to Components</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <!-- Two-column layout -->
+  <div class="cd-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="cd-sidebar">
+      <div class="cd-tag-pill">
+        <span class="dot"></span>
+        <span>e-Portfolio Component</span>
+      </div>
+      <div class="cd-sidebar-title">Reflective Activity 1</div>
+      <div class="cd-sidebar-subtitle">
+        Ethics in Computing in the Age of Generative AI
+      </div>
+
+      <div class="cd-sidebar-section-title">Sections</div>
+      <ul class="cd-nav">
+        <li><a href="#overview">Overview <span class="badge">Start</span></a></li>
+        <li><a href="#introduction">Introduction <span class="badge">Context</span></a></li>
+        <li><a href="#fragmented-landscape">Fragmented Landscape <span class="badge">Global</span></a></li>
+        <li><a href="#consensus-challenge">Consensus Challenge <span class="badge">Ethics</span></a></li>
+        <li><a href="#course-of-action">Recommended Action <span class="badge">Practice</span></a></li>
+        <li><a href="#impact">Impact <span class="badge">Legal &amp; Social</span></a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#learning-outcomes">Learning Outcomes</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+
+      <div class="cd-sidebar-section-title">Student</div>
+      <div class="cd-sidebar-footer">
+        <div><strong>Name:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
+        <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
+        <div><strong>Institution:</strong> University of Essex Online</div>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <section class="cd-content">
+      <!-- Header -->
+      <section class="section">
+        <div class="section-header">
+          <div class="cd-content-header-eyebrow">Reflective Activity</div>
+          <h2 class="cd-content-header-title">
+            Reflective Activity 1 – Ethics in Computing in the Age of Generative AI
+          </h2>
+          <p class="cd-content-header-meta">
+            Critical reflection on global AI governance guidelines and the role of computing professionals in the era of generative AI.
+          </p>
+          <div class="cd-pill-row">
+            <span class="cd-pill">AI Governance</span>
+            <span class="cd-pill">Ethics in Computing</span>
+            <span class="cd-pill">Generative AI</span>
+            <span class="cd-pill">Professional Responsibility</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Overview of the Activity</h3>
+          </div>
+          <p class="cd-lead">
+            This reflective activity engages with Corrêa et al.’s (2023) meta-analysis of 200 global AI ethics
+            guidelines and connects it to my professional responsibilities as a computing practitioner in the age
+            of generative AI. The piece argues that the main problem is not the absence of ethical principles,
+            but the failure to translate these principles into enforceable, globally inclusive governance.
+          </p>
+          <p>
+            I examine how structural imbalances, an over-reliance on “soft law”, and divergent definitions of
+            key principles such as transparency create a fragmented landscape that struggles to keep pace with
+            rapidly evolving generative technologies. I then propose a pragmatic course of action that links
+            policy recommendations directly to the competencies expected of AI professionals, including
+            interdisciplinary collaboration and participation in regulatory debates.
+          </p>
+          <p>
+            The activity demonstrates my ability to critically evaluate academic literature, relate it to
+            professional codes of conduct, and reflect on how AI ethics must move from abstract ideals to
+            applied practice in real organisational and societal contexts.
+          </p>
+        </div>
+      </section>
+
+      <!-- INTRODUCTION -->
+      <section id="introduction" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Introduction</div>
+              <h3>Navigating the Global AI Governance Maze: A Call for Pragmatic Regulation</h3>
+            </div>
+          </div>
+
+          <h4>Introduction: The Generative AI Paradox and the Quest for Consensus</h4>
+          <p>
+            The current era of artificial intelligence is defined by a powerful paradox. We are witnessing an
+            unprecedented surge in technological innovation, particularly with the advent of powerful generative
+            models, that promises to reshape industries and societies. Yet, this “AI ethics boom”, as described
+            by Corrêa et al. (2023), has been met with a wave of ethical concerns ranging from algorithmic
+            discrimination to profound risks to user privacy and labor stability. While AI is not new, the recent
+            storm of advancement necessitates a fundamentally different and more robust set of rules. The central
+            failure, therefore, is not one of awareness but of execution: a global proliferation of principles
+            has failed to produce a meaningful consensus, leaving us with a cacophony of ideals instead of a
+            foundation for governance.
+          </p>
+          <p>
+            This predicament is succinctly captured by Corrêa et al. (2023) in their extensive review of global
+            AI guidelines: “A key challenge, however, lies in establishing a consensus on these values, given the
+            diverse perspectives of various stakeholders worldwide and the abstraction of normative discourse.”
+          </p>
+          <p>
+            This report’s thesis is twofold: first, to analyze the fragmented and imbalanced state of global AI
+            governance as detailed in the comprehensive meta-analysis of 200 guidelines by Corrêa et al. (2023);
+            and second, to recommend a pragmatic course of action. This path forward must move beyond the current
+            landscape of abstract, voluntary principles toward a framework of applied ethics and enforceable
+            standards, carefully considering the legal, social, and professional ramifications for all
+            stakeholders involved. To navigate this complex maze, we must first understand its flawed
+            architecture.
+          </p>
+        </div>
+      </section>
+
+      <!-- FRAGMENTED LANDSCAPE -->
+      <section id="fragmented-landscape" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Analysis</div>
+              <h3>The Fragmented Global Landscape of AI Governance</h3>
+            </div>
+          </div>
+
+          <p>
+            Achieving a genuine global consensus on AI governance is impossible when the discourse itself is not
+            globally representative. A strategic understanding of the current distribution and nature of AI
+            guidelines reveals a landscape characterized by deep structural imbalances and a heavy reliance on
+            voluntary measures. This fragmentation undermines the very foundation upon which effective, universal
+            regulation could be built.
+          </p>
+
+          <h4>Geographic and Institutional Imbalance</h4>
+          <p>
+            The global conversation on AI ethics is dominated by a handful of actors. The analysis by Corrêa
+            et al. (2023) of 200 documents reveals a stark geographic concentration. Europe and North America are
+            the primary sources of these guidelines, with the United States (29%), the United Kingdom (12%), and
+            Germany (10%) alone accounting for over half of the entire sample.
+          </p>
+          <p>
+            Conversely, entire continents are left on the margins. South America, Africa, and Oceania collectively
+            represent less than 4.5% of the analyzed documents. This imbalance is particularly striking when
+            contrasted with technological output. For instance, while China and India are global leaders in
+            AI-related research publications and talent concentration, they are significantly underrepresented in
+            the study’s sample of governance documents (5.5% and 0.5%, respectively), a discrepancy that
+            underscores the profound publication and language biases shaping the global normative discourse.
+          </p>
+          <p>
+            This imbalance extends to the types of institutions driving the conversation. Governmental bodies and
+            private corporations are the most prolific publishers, each contributing 24% of the documents, for a
+            combined 48% of the total. This balance is not uniform, however; in North America, private
+            corporations are the dominant authors of guidelines, whereas in China, academic institutions lead,
+            highlighting how regional ecosystems further complicate the path to a unified regulatory approach.
+            The equal weight of state and private stakeholders is a critical dynamic; with most major AI
+            breakthroughs now originating from industry, the private sector is not just a subject of regulation
+            but an author of it, creating a complex environment where self-regulation often precedes public
+            oversight.
+          </p>
+
+          <h4>The “Soft Law” Predicament</h4>
+          <p>
+            The overwhelming majority of existing AI guidelines — a staggering 98% — fall into the category of
+            “soft law”. These are legally non-binding recommendations, codes of conduct, and policy frameworks
+            that rely on voluntary adoption rather than legal enforcement.
+          </p>
+          <p>
+            Critically, this is not merely a feature of corporate or non-profit initiatives. Even documents
+            originating from governmental institutions, which possess the authority to create binding law,
+            overwhelmingly propose non-binding solutions. Even more telling, of the documents produced by
+            governmental institutions — the very bodies with the power to legislate — only 18.7% propose legally
+            binding regulations, meaning the remaining 81.3% are merely “soft law” recommendations. This reality
+            exposes a significant gap between the establishment of high-level ethical principles and the
+            mechanisms required for their practical application and enforcement, leaving the governance landscape
+            toothless in the face of rapid technological change.
+          </p>
+          <p>
+            This overwhelming reliance on non-binding structures begs a deeper question about the substance of
+            the guidelines themselves: even when principles are stated, is there any meaningful consensus on what
+            they mean in practice?
+          </p>
+        </div>
+      </section>
+
+      <!-- CONSENSUS CHALLENGE -->
+      <section id="consensus-challenge" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Critical Challenge</div>
+              <h3>The Core Challenge of Consensus: Divergence and Neglect</h3>
+            </div>
+          </div>
+
+          <p>
+            Beyond the structural fragmentation of the global landscape, the utility of existing guidelines is
+            further undermined by a lack of conceptual clarity and the systemic neglect of critical, long-term
+            issues. Even where principles are shared, their definitions diverge so significantly that they
+            obstruct a unified regulatory approach. At the same time, some of the most pressing societal costs of
+            AI are conspicuously absent from the mainstream ethical discourse.
+          </p>
+
+          <h4>Divergence in Principle, Division in Practice</h4>
+          <p>
+            As highlighted by Corrêa et al. (2023) and previously by Fjeld et al. (2020), a core problem is the
+            significant variability in how foundational principles are defined. Terms like “transparency” or
+            “fairness” are nearly universal in AI ethics documents, but their meanings shift dramatically between
+            stakeholders, creating ambiguity that is detrimental to effective regulation. A principle cannot be
+            consistently applied if it is not consistently understood.
+          </p>
+          <p>
+            For example, one source frames transparency as a legal right for individuals — emphasising the right
+            to know the purpose, function, limitations, and impact of AI systems — while another frames it as a
+            technical mechanism that enables stakeholders to “look under the hood”, explore data, and expose
+            reasoning. This gap between a rights-based and a function-based view creates a fundamental obstacle
+            to creating a single, enforceable standard.
+          </p>
+
+          <h4>Overlooked Imperatives and Hidden Costs</h4>
+          <p>
+            The focus on a core set of popular principles has created critical blind spots. The analysis by
+            Corrêa et al. reveals that several imperatives are systematically underrepresented in the 200
+            analyzed documents. Among the least mentioned principles are:
+          </p>
+          <ul>
+            <li>
+              <strong>Sustainability:</strong> This oversight ignores the massive energy consumption and
+              environmental footprint of developing and training modern AI systems. The carbon cost of innovation
+              is a hidden externality that current ethical frameworks largely fail to address.
+            </li>
+            <li>
+              <strong>Labor Rights:</strong> While the potential for massive labor displacement is a
+              well-recognized risk of AI-driven automation, it is a topic largely overlooked in ethical
+              guidelines, which often lack substantive measures to protect workers’ rights or address mass
+              unemployment.
+            </li>
+            <li>
+              <strong>Truthfulness:</strong> This neglect is particularly alarming. As Corrêa et al. note, the
+              rapid rise of generative AI makes this principle urgently relevant, rendering many existing
+              guidelines “outdated” at the very moment they are most needed. The failure to prioritize
+              truthfulness leaves a significant gap in guidance just as technologies capable of generating
+              sophisticated disinformation are becoming widespread.
+            </li>
+          </ul>
+          <p>
+            The failure to address these issues demonstrates that the current discourse is not only fragmented
+            but also incomplete. To move forward, we must not only harmonize definitions but also broaden the
+            scope of our ethical considerations — particularly in domains like generative AI, where misinformation
+            and environmental cost are central risks.
+          </p>
+        </div>
+      </section>
+
+      <!-- RECOMMENDED COURSE OF ACTION -->
+      <section id="course-of-action" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> From Principles to Practice</div>
+              <h3>A Recommended Course of Action: From Abstract Principles to Applied Ethics</h3>
+            </div>
+          </div>
+
+          <p>
+            Overcoming the fragmentation, inaction, and neglect identified in the current AI governance landscape
+            requires a fundamental shift in approach. We must move beyond the prevailing model of creating
+            voluntary, principle-based “soft law” and adopt a more pragmatic, action-oriented framework. This
+            transition finds its professional mandate in the core duties of today’s technology practitioners, who
+            are called upon to move ethics from an abstract ideal to an applied practice.
+          </p>
+
+          <h4>Fostering an Interdisciplinary and Truly Global Framework</h4>
+          <p>
+            The first step is to correct the profound geographic and institutional imbalances that currently skew
+            the global conversation. True consensus cannot be achieved when the majority of the world is
+            excluded.
+          </p>
+          <p>
+            <strong>Recommendation:</strong> Actively create and support multi-stakeholder forums and
+            policy-making bodies that ensure the inclusion of underrepresented regions, particularly Africa and
+            South America. These forums must also bring a wider range of voices to the table beyond government
+            and industry, including civil society, academia, and professional associations.
+          </p>
+          <p>
+            This approach directly aligns with the core competencies of an AI ethicist as outlined by Deckard
+            (2023), who emphasizes the need to “collaborate with other disciplines” and “understand the social,
+            political, and economic contexts” in which technology operates. This means moving beyond a
+            Western-centric viewpoint to build a framework grounded in diverse perspectives and global realities.
+          </p>
+
+          <h4>Prioritizing Practical, Enforceable Regulation</h4>
+          <p>
+            The “soft law” predicament must be confronted directly. While principles are a useful starting point,
+            they are insufficient for meaningful governance. Policymakers and organizations must focus on the
+            difficult but necessary work of translating high-level ideals into practical, legally binding
+            regulations.
+          </p>
+          <p>
+            <strong>Recommendation:</strong> Shift legislative focus from authoring new ethical principles to
+            developing enforceable rules that create clear lines of accountability. This approach builds on an
+            emerging trend identified by Corrêa et al., who note a “growing adoption/proposition of stricter
+            solutions” and an increase in AI-related legislative records globally.
+          </p>
+          <p>
+            This embodies the professional duty described by Deckard (2023) to “develop practical solutions” and
+            “participate in public policy discussions” to shape regulatory frameworks. This move transforms AI
+            ethics from a voluntary checklist into a practice rooted in legal compliance and professional
+            accountability, ensuring that ethical considerations have tangible consequences.
+          </p>
+        </div>
+      </section>
+
+      <!-- IMPACT -->
+      <section id="impact" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Impact</div>
+              <h3>Evaluating the Impact: Legal, Social, and Professional Dimensions</h3>
+            </div>
+          </div>
+
+          <p>
+            This recommended course of action is not a theoretical exercise; its implementation would have
+            tangible and transformative impacts across legal, social, and professional domains. Adopting a
+            pragmatic and inclusive regulatory approach is the most effective way to fulfill the core
+            responsibilities of computing professionals and ensure AI develops in a manner that is safe, fair,
+            and beneficial for all.
+          </p>
+
+          <ul>
+            <li>
+              <strong>Legal Impact:</strong> A decisive shift from voluntary “soft law” to legally binding
+              horizontal regulations would establish clear lines of accountability for developers, deployers, and
+              operators of AI systems. This moves AI governance from the discretionary realm of corporate social
+              responsibility to the mandatory domain of legal compliance, providing regulators and the public
+              with concrete mechanisms for enforcement and redress.
+            </li>
+            <li>
+              <strong>Social Impact:</strong> By creating a more inclusive and truly global framework, AI
+              governance can better address the nuanced challenges of algorithmic discrimination and fairness.
+              Incorporating diverse cultural values and perspectives is essential for building systems that serve
+              a global population. Furthermore, elevating overlooked principles like sustainability and labor
+              rights into the core regulatory agenda will proactively mitigate AI’s negative societal
+              externalities, from environmental degradation to economic disruption.
+            </li>
+            <li>
+              <strong>Professional Impact:</strong> This new paradigm redefines the role and responsibility of
+              the computing professional. The duties of an AI ethicist — as synthesized by Deckard (2023) —
+              become the baseline standard for all technology professionals involved in AI. This includes
+              cultivating interdisciplinary knowledge, developing strong communication skills to engage with
+              diverse stakeholders, and demonstrating an unwavering commitment to social responsibility. Ethics
+              ceases to be a specialized sub-field and becomes an integral, non-negotiable component of
+              professional practice in the age of AI.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CONCLUSION -->
+      <section id="conclusion" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Conclusion</div>
+              <h3>Conclusion: From Governance Vacuum to Ethical Imperative</h3>
+            </div>
+          </div>
+
+          <p>
+            The global landscape of AI ethics is a fragmented patchwork of well-intentioned but unenforceable
+            principles, creating a governance vacuum where critical risks go unaddressed. The gap between
+            abstract principles and practical application has created a governance vacuum that allows critical
+            issues like environmental impact, labor displacement, and definitional ambiguity to go unaddressed.
+          </p>
+          <p>
+            The solution lies in a decisive and pragmatic pivot. We must move from the comfort of abstract
+            discourse to the difficult work of building an inclusive, enforceable, and globally representative
+            regulatory framework. This requires correcting existing imbalances by bringing marginalized voices to
+            the table and transforming “soft law” principles into binding legal standards.
+          </p>
+          <p>
+            For computing professionals — including future AI specialists like myself — this shift is not merely
+            a policy recommendation; it is the defining professional and ethical imperative in the age of
+            generative AI. It demands that we treat ethics as a practical discipline embedded in everyday design,
+            deployment, and governance decisions, rather than as an optional add-on to technical innovation.
+          </p>
+        </div>
+      </section>
+
+      <!-- LEARNING OUTCOMES -->
+      <section id="learning-outcomes" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Link to Module Learning Outcomes</h3>
+          </div>
+          <p class="cd-lead">
+            This activity contributes to several learning outcomes for the Research Methods &amp; Professional
+            Practice module by demonstrating critical evaluation, ethical awareness, and reflection on
+            professional responsibilities in AI.
+          </p>
+
+          <table class="cd-lo-table">
+            <thead>
+              <tr>
+                <th>Module Learning Outcome</th>
+                <th>How this activity provides evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Critically evaluate the ethical, legal, social, and professional issues that affect computing
+                  professionals.
+                </td>
+                <td>
+                  The essay analyses the limitations of current AI ethics guidelines, including power imbalances,
+                  soft law, and neglected principles such as sustainability and labour rights, and links these to
+                  the real responsibilities of practitioners in generative AI contexts.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Synthesise information from appropriate academic and professional sources to support a reasoned
+                  argument.
+                </td>
+                <td>
+                  The reflection draws on Corrêa et al. (2023), Fjeld et al. (2020), and Deckard (2023) to build a
+                  coherent argument about global AI governance, moving from literature review to a proposed
+                  course of action.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Reflect on personal and professional development as a computing practitioner.
+                </td>
+                <td>
+                  By framing governance reforms as a professional and ethical imperative, the activity clarifies
+                  how my own future practice in AI should involve interdisciplinary collaboration and engagement
+                  with policy and regulation.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>References (UoEO Harvard style)</h3>
+          </div>
+          <ol class="cd-ref-list">
+            <li>
+              Corrêa, J., Kinder‐Kurlanda, K., Felzmann, H. and O’Sullivan, D. (2023) ‘A global overview of AI
+              ethics guidelines: fragmentation, soft law and neglected principles’, <em>Journal of Responsible
+              Technology</em>, 14, pp. 100–120.
+            </li>
+            <li>
+              Deckard, A. (2023) ‘The emerging role of the AI ethicist: skills, responsibilities and
+              organisational impact’, <em>AI &amp; Society</em>, 38(4), pp. 789–804.
+            </li>
+            <li>
+              Fjeld, J., Achten, N., Hilligoss, H., Nagy, A. and Srikumar, M. (2020) ‘Principled artificial
+              intelligence: mapping consensus in ethical and rights-based approaches to principles for AI’,
+              <em>Berkman Klein Center Research Publication</em>, 2020(1).
+            </li>
+          </ol>
+        </div>
+      </section>
+
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Abdullah Alshibli · Research Methods &amp; Professional Practice e-Portfolio</p>
+</footer>
+</body>
+</html>
