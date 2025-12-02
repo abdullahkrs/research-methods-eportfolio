@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="../style.css" />
 
-  <!-- Page-specific layout for two-column design (reusing Collaborative Discussion 1 template) -->
+  <!-- Page-specific table styling -->
   <style>
-    .cd-layout {
+    .layout-grid {
       display: grid;
       grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
       gap: 1.8rem;
@@ -16,228 +16,173 @@
       align-items: flex-start;
     }
 
-    .cd-sidebar {
+    @media (max-width: 880px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sidebar {
       position: sticky;
       top: 4.5rem;
       align-self: flex-start;
-      background: radial-gradient(circle at top left, #020617, #020617 60%);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 0.85rem;
+      border: 1px solid var(--border, #1f2937);
       padding: 1.1rem 1rem 1.4rem;
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--shadow-soft, 0 16px 40px rgba(0,0,0,0.35));
       font-size: 0.85rem;
     }
 
-    .cd-sidebar-title {
+    .sidebar-title {
       font-size: 0.95rem;
       font-weight: 600;
       margin-bottom: 0.25rem;
     }
 
-    .cd-sidebar-subtitle {
+    .sidebar-subtitle {
       font-size: 0.78rem;
-      color: var(--muted);
+      color: var(--muted, #9ca3af);
       margin-bottom: 0.9rem;
     }
 
-    .cd-tag-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.18rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--muted);
-      margin-bottom: 0.6rem;
-    }
-
-    .cd-tag-pill span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .cd-sidebar-section-title {
+    .sidebar-section-title {
       font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      margin: 1rem 0 0.4rem;
+      letter-spacing: 0.11em;
+      color: var(--muted, #9ca3af);
+      margin: 1rem 0 0.35rem;
     }
 
-    .cd-nav {
+    .sidebar-nav {
       list-style: none;
-      margin: 0;
       padding: 0;
+      margin: 0;
     }
 
-    .cd-nav li {
+    .sidebar-nav li {
       margin-bottom: 0.15rem;
     }
 
-    .cd-nav a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .sidebar-nav a {
+      display: block;
       padding: 0.35rem 0.6rem;
       border-radius: 999px;
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--muted, #9ca3af);
       text-decoration: none;
-      transition: background var(--transition), color var(--transition), transform var(--transition);
+      transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
     }
 
-    .cd-nav a span.badge {
-      font-size: 0.7rem;
-      padding: 0.1rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .cd-nav a:hover {
-      background: var(--accent-soft);
-      color: var(--text);
+    .sidebar-nav a:hover {
+      background: rgba(79, 70, 229, 0.15);
+      color: var(--text, #e5e7eb);
       transform: translateX(1px);
     }
 
-    .cd-sidebar-footer {
-      border-top: 1px solid var(--border);
+    .sidebar-footer {
+      border-top: 1px solid var(--border, #1f2937);
       margin-top: 0.9rem;
       padding-top: 0.7rem;
       font-size: 0.75rem;
-      color: var(--muted);
+      color: var(--muted, #9ca3af);
     }
 
-    .cd-sidebar-footer strong {
-      color: var(--text);
+    .sidebar-footer strong {
+      color: var(--text, #e5e7eb);
       font-weight: 500;
     }
 
-    .cd-content-header-eyebrow {
+    .page-eyebrow {
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-
-    .cd-content-header-title {
-      font-size: clamp(1.7rem, 3vw, 2rem);
-      margin: 0 0 0.25rem;
-    }
-
-    .cd-content-header-meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .cd-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 0.7rem;
-    }
-
-    .cd-pill {
-      padding: 0.16rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 0.7rem;
-      color: var(--muted);
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .cd-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.75rem;
-      margin-bottom: 0.55rem;
-    }
-
-    .cd-badge-soft {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      padding: 0.16rem 0.6rem;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--text);
-    }
-
-    .cd-badge-soft span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
-    .cd-card-meta {
-      font-size: 0.75rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .cd-lead {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-top: 0;
-    }
-
-    .cd-accent-box {
-      margin-top: 0.7rem;
-      padding: 0.75rem 0.8rem;
-      border-radius: 0.8rem;
-      border: 1px dashed var(--border);
-      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.16), transparent);
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    .cd-lo-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.8rem;
-      margin-top: 0.6rem;
-    }
-
-    .cd-lo-table th,
-    .cd-lo-table td {
-      padding: 0.55rem 0.6rem;
-      border: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    .cd-lo-table th {
-      text-align: left;
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .cd-ref-list {
-      font-size: 0.82rem;
-      padding-left: 1.1rem;
-    }
-
-    .cd-ref-list li {
+      letter-spacing: 0.16em;
+      color: var(--muted, #9ca3af);
       margin-bottom: 0.35rem;
     }
 
-    @media (max-width: 880px) {
-      .cd-layout {
-        grid-template-columns: 1fr;
-      }
+    .page-title {
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      margin: 0 0 0.35rem;
+    }
 
-      .cd-sidebar {
-        position: static;
-      }
+    .page-meta {
+      font-size: 0.86rem;
+      color: var(--muted, #9ca3af);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading {
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+    }
+
+    .section-intro {
+      font-size: 0.9rem;
+      color: var(--muted, #9ca3af);
+      margin: 0 0 0.6rem;
+    }
+
+    .table-block {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 1.2rem;
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid var(--border, #1f2937);
+    }
+
+    .table-block caption {
+      text-align: left;
+      padding: 0.75rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(17, 24, 39, 0.95);
+      border-bottom: 1px solid var(--border, #1f2937);
+    }
+
+    .table-block th,
+    .table-block td {
+      padding: 0.6rem 0.7rem;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+      vertical-align: top;
+    }
+
+    .table-block th {
+      text-align: left;
+      background: rgba(15, 23, 42, 0.98);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted, #9ca3af);
+    }
+
+    .table-block tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--muted, #9ca3af);
+      margin-left: 0.4rem;
+    }
+
+    .badge-soft span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(129, 140, 248, 1);
     }
   </style>
 </head>
@@ -257,378 +202,479 @@
 </header>
 
 <main class="page">
-  <!-- Two-column layout -->
-  <div class="cd-layout">
+  <div class="layout-grid">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-title">Seminar 2: Peer Review Activity</div>
+      <div class="sidebar-subtitle">Unit 3 – Methodology and Research Methods</div>
 
-    <!-- LEFT SIDEBAR -->
-    <aside class="cd-sidebar">
-      <div class="cd-tag-pill">
-        <span class="dot"></span>
-        <span>e-Portfolio Component</span>
-      </div>
-      <div class="cd-sidebar-title">Seminar 2: Peer Review Activity</div>
-      <div class="cd-sidebar-subtitle">
-        Methodology &amp; Research Methods (Unit 3)
-      </div>
-
-      <div class="cd-sidebar-section-title">Sections</div>
-      <ul class="cd-nav">
-        <li><a href="#overview">Overview <span class="badge">Start</span></a></li>
-        <li><a href="#my-outline">My Research Outline <span class="badge">Draft</span></a></li>
-        <li><a href="#peer-reviewed">Peer’s Outline Reviewed <span class="badge">Peer</span></a></li>
-        <li><a href="#peer-feedback">Feedback I Provided <span class="badge">Comments</span></a></li>
-        <li><a href="#feedback-received">Feedback I Received <span class="badge">Reflection</span></a></li>
-        <li><a href="#summary-reflection">Summary Reflection <span class="badge">Learning</span></a></li>
-        <li><a href="#learning-outcomes">Learning Outcomes</a></li>
+      <div class="sidebar-section-title">Sections</div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#my-outline">My Research Outline</a></li>
+        <li><a href="#peer-outline">Peer’s Outline Reviewed</a></li>
+        <li><a href="#feedback-given">Feedback I Provided</a></li>
+        <li><a href="#feedback-received">Feedback I Received</a></li>
+        <li><a href="#reflection">Summary Reflection</a></li>
+        <li><a href="#learning-outcomes">Learning Outcomes Mapping</a></li>
         <li><a href="#references">References</a></li>
       </ul>
 
-      <div class="cd-sidebar-section-title">Student</div>
-      <div class="cd-sidebar-footer">
+      <div class="sidebar-section-title">Student</div>
+      <div class="sidebar-footer">
         <div><strong>Name:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
         <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
         <div><strong>Institution:</strong> University of Essex Online</div>
       </div>
     </aside>
 
-    <!-- RIGHT CONTENT -->
-    <section class="cd-content">
+    <!-- MAIN CONTENT -->
+    <section>
       <!-- Header -->
       <section class="section">
-        <div class="section-header">
-          <div class="cd-content-header-eyebrow">Seminar 2 – Peer Review</div>
-          <h2 class="cd-content-header-title">Peer Review Activity – Methodology and Research Methods</h2>
-          <p class="cd-content-header-meta">
-            Unit 3 · Reviewing research design, methodology choice, and alignment between questions, data and methods.
-          </p>
-          <div class="cd-pill-row">
-            <span class="cd-pill">Research Design</span>
-            <span class="cd-pill">Qualitative, Quantitative &amp; Mixed Methods</span>
-            <span class="cd-pill">Peer Feedback</span>
-            <span class="cd-pill">Critical Reflection</span>
-          </div>
-        </div>
+        <div class="page-eyebrow">Seminar 2 – Peer Review Activity</div>
+        <h1 class="page-title">Methodology and Research Methods – Peer Review</h1>
+        <p class="page-meta">
+          This page documents my contribution to the Seminar 2 peer review activity, including my own research outline,
+          the outline I reviewed, the feedback exchanged, and how this supported my understanding of research design.
+        </p>
       </section>
 
-      <!-- OVERVIEW -->
+      <!-- 1) OVERVIEW TABLE -->
       <section id="overview" class="section">
-        <div class="section-muted">
-          <div class="cd-card-header">
-            <h3>Overview of the Peer Review Activity</h3>
-          </div>
-          <p class="cd-lead">
-            In Seminar 2, I participated in a structured peer review activity focused on evaluating
-            research design and methodology. Each student prepared a short outline describing their
-            research topic, research question(s), proposed methods, and data sources. We then reviewed
-            a peer’s outline using the concepts from Units 1–3, including research purpose, design,
-            and the differences between qualitative, quantitative and mixed methods.
-          </p>
-          <p>
-            My contribution involved (1) presenting my own outline, centred on the use of Artificial
-            Intelligence in a computing context, and (2) critically evaluating a peer’s outline in
-            terms of clarity of the research question, appropriateness of the chosen methodology, and
-            alignment between data collection, analysis and research aims. The activity helped me
-            connect the theoretical content from the seminars with real, practical examples of research
-            planning.
-          </p>
-          <p>
-            This page documents my original outline, the outline I reviewed, the feedback I provided,
-            key feedback I received from peers and tutor, and a reflective summary on how this activity
-            improved my understanding of research methods and professional practice.
-          </p>
-        </div>
+        <h2 class="section-heading">1. Overview of the Activity</h2>
+        <p class="section-intro">
+          The table below summarises the purpose of the Seminar 2 Peer Review Activity and my role within it.
+        </p>
+
+        <table class="table-block">
+          <caption>Table 1. Activity Overview</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Seminar focus</th>
+              <td>
+                Unit 3 – Methodology and Research Methods: connecting research questions, research design,
+                and the choice of qualitative, quantitative or mixed methods.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Main task</th>
+              <td>
+                Each student prepared a short research outline, then peer-reviewed another student’s outline,
+                focusing on the alignment between research questions, methods, and data collection.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">My contributions</th>
+              <td>
+                (1) Drafted my own outline for an AI-related computing topic. <br />
+                (2) Reviewed a peer’s outline using Seminar 2 concepts. <br />
+                (3) Reflected on feedback I gave and received.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Key concepts applied</th>
+              <td>
+                Research purpose and questions; exploratory vs conclusive design; qualitative vs quantitative vs mixed methods;
+                appropriateness of methods and data; ethical and feasibility considerations.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- MY OUTLINE -->
+      <!-- 2) MY OUTLINE TABLE -->
       <section id="my-outline" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <div>
-              <div class="cd-badge-soft"><span class="dot"></span> My Contribution</div>
-              <h3>My Research Outline – Topic, Questions and Method</h3>
-            </div>
-            <div class="cd-card-meta">
-              Draft prepared for Unit 3 · Seminar 2
-            </div>
-          </div>
+        <h2 class="section-heading">2. My Research Outline</h2>
+        <p class="section-intro">
+          This table summarises the core elements of my own research outline prepared for Seminar 2.
+        </p>
 
-          <p>
-            In my outline, I proposed a study in the area of Artificial Intelligence within Computing.
-            The central aim was to examine how AI-based techniques can support decision-making in a
-            specific context (for example, fraud detection, intelligent agents or geospatial analysis).
-            I formulated a clear research question that followed the guidance from Unit 2:
-            it was specific, feasible and linked directly to a practical problem.
-          </p>
-          <p>
-            I proposed a <strong>[quantitative / qualitative / mixed-method]*</strong> design
-            (to be specified based on the final topic), ensuring that the research method matched the
-            type of data I intended to collect. For example, a quantitative design would involve
-            numerical performance metrics and statistical analysis, whereas a qualitative design
-            would employ interviews or thematic analysis to explore experiences or perceptions.
-          </p>
-          <p>
-            I also outlined my planned data sources (e.g. publicly available datasets, survey responses,
-            or experimental results) and briefly described how these would be analysed to answer the
-            research question in a systematic and ethical way.
-          </p>
-
-          <div class="cd-accent-box">
-            <strong>Note:</strong> The peer review task required not only describing my own research
-            idea but justifying the choice of method using the concepts of exploratory vs conclusive
-            design, and qualitative vs quantitative vs mixed methods from Seminar 2.
-          </div>
-        </div>
+        <table class="table-block">
+          <caption>Table 2. Summary of My Research Outline</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Topic area</th>
+              <td>
+                Artificial Intelligence within Computing (e.g. intelligent systems for decision support such as fraud detection,
+                intelligent agents, or geospatial analysis).
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Research problem</th>
+              <td>
+                There is a need to understand how AI techniques can be applied in a specific computing context to improve
+                decision-making, performance, or user experience, while remaining feasible and ethical.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Research aim</th>
+              <td>
+                To investigate how a selected AI approach can be designed, implemented and evaluated in a defined scenario
+                (for example, detecting anomalies, supporting municipal decisions, or classifying transactions).
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Research question(s)</th>
+              <td>
+                Example: “How effectively can [chosen AI technique] improve [specific computing task] compared with a
+                baseline approach?” The question is designed to be clear, focused and answerable within the module.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Proposed method</th>
+              <td>
+                A <strong>[quantitative / qualitative / mixed]</strong> approach (to be finalised), chosen to match the nature
+                of the data and the type of question. For instance, a quantitative experiment for performance comparison
+                or a qualitative study for exploring user perceptions.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Data collection</th>
+              <td>
+                Depending on the final design: structured datasets, system logs, survey responses, or interview transcripts.
+                Emphasis on accessible, ethical and realistic data sources.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Data analysis</th>
+              <td>
+                For quantitative designs: descriptive statistics and performance metrics (e.g. accuracy, precision, recall).<br />
+                For qualitative designs: coding and thematic analysis to identify recurring patterns or themes.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Ethical / practical considerations</th>
+              <td>
+                Ensuring data privacy, anonymisation where required, and realistic scope within the module timeframe.
+                Seeking ethical approval where human participants are involved.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- PEER OUTLINE REVIEWED -->
-      <section id="peer-reviewed" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <div>
-              <div class="cd-badge-soft"><span class="dot"></span> Peer Artefact</div>
-              <h3>Peer’s Research Outline – Summary of the Study</h3>
-            </div>
-            <div class="cd-card-meta">
-              Anonymous peer · Reviewed during Seminar 2
-            </div>
-          </div>
+      <!-- 3) PEER OUTLINE TABLE -->
+      <section id="peer-outline" class="section">
+        <h2 class="section-heading">3. Peer’s Outline Reviewed</h2>
+        <p class="section-intro">
+          The following table summarises the main elements of the peer outline I reviewed (kept anonymous).
+        </p>
 
-          <p>
-            The outline I reviewed focused on a computing topic chosen by my peer, such as cybersecurity,
-            AI in healthcare, or data science in education. The peer described their research problem,
-            formulated one or more research questions, and identified a preferred research method,
-            for example a survey-based quantitative study or a qualitative case study.
-          </p>
-          <p>
-            They also indicated the type of data they intended to collect (e.g. log data, questionnaire
-            responses, interview transcripts) and how they planned to analyse that data. My role was to
-            evaluate whether these choices were consistent with the research question and whether the
-            methods were feasible and ethical.
-          </p>
-
-          <div class="cd-accent-box">
-            <strong>Key point:</strong> The focus of the peer review was not to “fix” the topic,
-            but to check the logic that connects the research question, the method, and the data
-            collection and analysis strategy.
-          </div>
-        </div>
+        <table class="table-block">
+          <caption>Table 3. Summary of Peer’s Research Outline</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Topic area</th>
+              <td>
+                A computing topic such as cybersecurity, AI in healthcare, or data science in education, addressing a practical
+                issue like security awareness, prediction, or user behaviour.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Research problem</th>
+              <td>
+                The peer highlighted a gap or challenge (for example, limited understanding of user behaviour or insufficient
+                evaluation of a specific tool).
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Stated aim</th>
+              <td>
+                To examine or improve a specific aspect of the chosen domain, such as user security practices, performance of
+                a predictive model, or adoption of a technology.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Research question(s)</th>
+              <td>
+                The peer provided one or more questions, for example “What factors influence X?” or “To what extent does Y
+                improve Z?”. My role was to check clarity and alignment with the methods.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Chosen method</th>
+              <td>
+                Typically either a survey-based quantitative study or a qualitative case study, depending on whether the peer
+                wanted to measure frequency/relationships or explore experiences in depth.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Data collection and analysis</th>
+              <td>
+                The peer outlined planned data sources such as questionnaires, interviews, or log data, and named basic
+                analysis approaches (e.g. descriptive statistics or thematic analysis).
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- FEEDBACK I PROVIDED -->
-      <section id="peer-feedback" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <div>
-              <div class="cd-badge-soft"><span class="dot"></span> Feedback Given</div>
-              <h3>Feedback I Provided to My Peer</h3>
-            </div>
-            <div class="cd-card-meta">
-              Focus: Alignment of question, method, and data
-            </div>
-          </div>
+      <!-- 4) FEEDBACK GIVEN TABLE -->
+      <section id="feedback-given" class="section">
+        <h2 class="section-heading">4. Feedback I Provided to My Peer</h2>
+        <p class="section-intro">
+          The table below captures the main feedback points I gave during the peer review.
+        </p>
 
-          <p>
-            In my feedback, I began by acknowledging the strengths of my peer’s outline—for example,
-            a clearly stated topic, a relevant problem in computing, or a strong motivation for the study.
-            I then evaluated the research question using the criteria from Unit 2: specificity, relevance,
-            feasibility and ethical considerations.
-          </p>
-          <p>
-            I commented on whether the chosen method matched the research aim. For instance, if the peer
-            wanted to understand “how” or “why” users behave in a certain way, I suggested that a
-            qualitative method (e.g. interviews or case studies) might be more appropriate than a purely
-            quantitative questionnaire. Conversely, if the goal was to measure “how many” or “how much”,
-            I supported the use of a quantitative survey or experiment.
-          </p>
-          <p>
-            I also asked clarifying questions about data collection and analysis, encouraging the peer
-            to think about sampling, validity, and how they would interpret their results. Where relevant,
-            I reminded them of the importance of ethical approval and informed consent when collecting
-            primary data from human participants.
-          </p>
-
-          <div class="cd-accent-box">
-            <strong>Overall aim:</strong> My feedback was constructive, focused on improving the match
-            between research questions, methods and data, and grounded in the terminology and examples
-            discussed in Units 1–3.
-          </div>
-        </div>
+        <table class="table-block">
+          <caption>Table 4. Key Feedback I Provided</caption>
+          <thead>
+            <tr>
+              <th>Aspect Reviewed</th>
+              <th>My Feedback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Clarity of research question</td>
+              <td>
+                I encouraged the peer to make the question more specific (who, what, where) and to ensure that the scope was
+                manageable within the module timeline.
+              </td>
+            </tr>
+            <tr>
+              <td>Alignment between question and method</td>
+              <td>
+                I checked whether the chosen method matched the type of question. For “how many / how much” questions, I
+                supported quantitative approaches; for “how / why” questions, I suggested qualitative methods where appropriate.
+              </td>
+            </tr>
+            <tr>
+              <td>Data collection strategy</td>
+              <td>
+                I asked whether the proposed data sources were realistic, accessible and sufficient to answer the research
+                question, and suggested clarifying sampling and recruitment.
+              </td>
+            </tr>
+            <tr>
+              <td>Analysis plan</td>
+              <td>
+                I recommended clearly stating how the data would be analysed (e.g. specific statistics or thematic coding) to
+                make the plan more systematic and convincing.
+              </td>
+            </tr>
+            <tr>
+              <td>Ethical considerations</td>
+              <td>
+                I reminded the peer to consider consent, anonymity and data protection, especially when collecting data from
+                human participants.
+              </td>
+            </tr>
+            <tr>
+              <td>Tone and constructiveness</td>
+              <td>
+                I aimed to balance critique with positive comments, acknowledging strengths in the outline while suggesting
+                concrete improvements.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- FEEDBACK I RECEIVED -->
+      <!-- 5) FEEDBACK RECEIVED TABLE -->
       <section id="feedback-received" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <div>
-              <div class="cd-badge-soft"><span class="dot"></span> Feedback Received</div>
-              <h3>Key Feedback I Received on My Outline</h3>
-            </div>
-            <div class="cd-card-meta">
-              From peer and tutor
-            </div>
-          </div>
+        <h2 class="section-heading">5. Feedback I Received on My Outline</h2>
+        <p class="section-intro">
+          This table summarises the most important feedback I received from my peer and tutor.
+        </p>
 
-          <p>
-            My peer and tutor provided several useful suggestions on my own outline. They highlighted
-            areas where my research question could be made more precise—for example, by narrowing the
-            context, clarifying the target population, or focusing on a specific type of AI technique
-            rather than a very broad category.
-          </p>
-          <p>
-            I was also encouraged to explain more clearly why I had chosen a particular research method
-            and how it related to my aims. For example, if I proposed a mixed-methods design, the feedback
-            reminded me to justify why I needed both qualitative and quantitative data instead of just
-            one type.
-          </p>
-          <p>
-            Another important point concerned feasibility and ethics: I was asked to consider whether my
-            planned data collection would be realistic within the module timeframe and how I would handle
-            issues such as consent, privacy and data security. This helped me to revise my outline into a
-            more focused and achievable plan.
-          </p>
-
-          <div class="cd-accent-box">
-            <strong>Impact:</strong> The feedback guided me to tighten my research question, better
-            justify my chosen method, and think more carefully about feasibility and ethics.
-          </div>
-        </div>
+        <table class="table-block">
+          <caption>Table 5. Key Feedback I Received</caption>
+          <thead>
+            <tr>
+              <th>Feedback Theme</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Focus and scope</td>
+              <td>
+                I was advised to narrow the topic and define the context more clearly so that the study would be achievable
+                within the time and resource constraints.
+              </td>
+            </tr>
+            <tr>
+              <td>Justification of method</td>
+              <td>
+                The feedback highlighted the need to explain more explicitly why my chosen method was the most suitable for my
+                research question, referring to the concepts of qualitative, quantitative and mixed methods from the unit.
+              </td>
+            </tr>
+            <tr>
+              <td>Data and feasibility</td>
+              <td>
+                I was encouraged to think carefully about how I would access the data, the number of participants (if any), and
+                how much analysis would be realistic.
+              </td>
+            </tr>
+            <tr>
+              <td>Ethical awareness</td>
+              <td>
+                The tutor reminded me that even small projects require ethical thinking, including consent and confidentiality
+                when using human data or sensitive information.
+              </td>
+            </tr>
+            <tr>
+              <td>Overall structure</td>
+              <td>
+                I was praised for having a clear idea but encouraged to make the logical connection between problem, question,
+                method and data more explicit and structured.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- SUMMARY REFLECTION -->
-      <section id="summary-reflection" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <div>
-              <div class="cd-badge-soft"><span class="dot"></span> Reflection</div>
-              <h3>Summary Reflection – What I Learned from the Peer Review</h3>
-            </div>
-            <div class="cd-card-meta">
-              Reflective note · approx. 200–300 words
-            </div>
-          </div>
+      <!-- 6) SUMMARY REFLECTION TABLE -->
+      <section id="reflection" class="section">
+        <h2 class="section-heading">6. Summary Reflection on the Activity</h2>
+        <p class="section-intro">
+          The following table captures my main learning points from Seminar 2.
+        </p>
 
-          <p>
-            The Seminar 2 peer review activity helped me move from a theoretical understanding of
-            research methods to a more practical and critical perspective. By reviewing another
-            student’s outline, I had to actively apply concepts such as research design, qualitative
-            and quantitative methods, and the link between questions, data and analysis. This made
-            the distinctions between exploratory and conclusive research, and between different method
-            types, feel much more concrete.
-          </p>
-          <p>
-            At the same time, receiving feedback on my own outline showed me that having a good idea
-            is not enough; I must be able to justify why a specific method is the best way to answer
-            my research question. The comments about narrowing my focus and explaining my method
-            choice more clearly have already influenced how I think about future assignments.
-          </p>
-          <p>
-            Overall, the activity strengthened my ability to read research plans critically, to give
-            constructive and respectful feedback, and to integrate feedback into my own work. It also
-            highlighted the importance of ethical and practical considerations in research planning.
-            This experience will be valuable when designing more advanced projects later in the MSc
-            programme.
-          </p>
-        </div>
+        <table class="table-block">
+          <caption>Table 6. Reflection on Learning from Peer Review</caption>
+          <thead>
+            <tr>
+              <th>Reflection Area</th>
+              <th>What I Learned</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Applying theory to practice</td>
+              <td>
+                Reviewing a peer’s outline helped me actively apply the concepts of research design, method choice and data
+                alignment, rather than just reading about them.
+              </td>
+            </tr>
+            <tr>
+              <td>Critical evaluation skills</td>
+              <td>
+                I improved my ability to identify strengths and weaknesses in research plans and to provide feedback that is
+                specific, fair and grounded in the unit content.
+              </td>
+            </tr>
+            <tr>
+              <td>Receiving feedback</td>
+              <td>
+                The comments I received showed me that even a promising idea needs a clear and well-justified methodology.
+                This has influenced how I plan future assignments.
+              </td>
+            </tr>
+            <tr>
+              <td>Ethics and feasibility</td>
+              <td>
+                I now pay more attention to what is realistic within a project and how ethical issues should be considered
+                from the beginning, not at the end.
+              </td>
+            </tr>
+            <tr>
+              <td>Future practice</td>
+              <td>
+                I intend to use a similar peer review mindset when planning later projects: checking alignment between problem,
+                question, design, method and data before starting any implementation.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- LEARNING OUTCOMES -->
+      <!-- 7) LEARNING OUTCOMES TABLE -->
       <section id="learning-outcomes" class="section">
-        <div class="section-muted">
-          <div class="cd-card-header">
-            <h3>Learning Outcomes Mapping</h3>
-          </div>
-          <p class="cd-lead">
-            The table below summarises how this activity demonstrates key module learning outcomes.
-          </p>
+        <h2 class="section-heading">7. Learning Outcomes Mapping</h2>
+        <p class="section-intro">
+          This table links elements of the activity to relevant module learning outcomes.
+        </p>
 
-          <table class="cd-lo-table">
-            <thead>
-              <tr>
-                <th>Activity Component</th>
-                <th>Evidence of Learning</th>
-                <th>Learning Outcomes Demonstrated</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>My Research Outline</td>
-                <td>
-                  Formulated a clear research topic and question; proposed an appropriate research
-                  method and data collection plan using concepts from Units 1–3.
-                </td>
-                <td>
-                  Demonstrate understanding of research questions, research design and the role of
-                  qualitative, quantitative and mixed methods in Computing research.
-                </td>
-              </tr>
-              <tr>
-                <td>Peer Review – Feedback Given</td>
-                <td>
-                  Critically evaluated a peer’s research outline; commented on alignment between
-                  question, method and data, and suggested improvements.
-                </td>
-                <td>
-                  Critically appraise research methods used in Computing and provide constructive
-                  feedback using appropriate academic language.
-                </td>
-              </tr>
-              <tr>
-                <td>Feedback Received &amp; Revisions</td>
-                <td>
-                  Reflected on peer and tutor feedback; revised my outline to improve clarity,
-                  feasibility, and ethical awareness.
-                </td>
-                <td>
-                  Reflect on personal learning and incorporate feedback to enhance the quality of
-                  research planning.
-                </td>
-              </tr>
-              <tr>
-                <td>Summary Reflection</td>
-                <td>
-                  Synthesised insights from the activity; linked practical experience of peer review
-                  with theoretical concepts from Seminar 2.
-                </td>
-                <td>
-                  Integrate theoretical knowledge of research methods with practical peer review
-                  experience in a professional context.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="table-block">
+          <caption>Table 7. Mapping to Module Learning Outcomes</caption>
+          <thead>
+            <tr>
+              <th>Activity Component</th>
+              <th>Evidence of Learning</th>
+              <th>Learning Outcome Demonstrated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>My research outline</td>
+              <td>
+                Formulated a research problem and question; selected an appropriate method and data strategy using unit
+                concepts.
+              </td>
+              <td>
+                Understanding of research questions, research design, and the role of different research methods in Computing.
+              </td>
+            </tr>
+            <tr>
+              <td>Peer review – feedback given</td>
+              <td>
+                Critically assessed another student’s outline and commented on alignment between question, method and data.
+              </td>
+              <td>
+                Ability to critically appraise research plans and communicate constructive feedback using academic language.
+              </td>
+            </tr>
+            <tr>
+              <td>Feedback received and revisions</td>
+              <td>
+                Reflected on feedback, identified areas for improvement, and considered how to revise my outline accordingly.
+              </td>
+              <td>
+                Reflective practice and willingness to improve research work based on feedback.
+              </td>
+            </tr>
+            <tr>
+              <td>Summary reflection</td>
+              <td>
+                Integrated seminar experience with theoretical content and outlined how this will influence future projects.
+              </td>
+              <td>
+                Integration of theory and practice in research methods and professional practice.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
-      <!-- REFERENCES -->
+      <!-- 8) REFERENCES TABLE -->
       <section id="references" class="section">
-        <div class="card">
-          <div class="cd-card-header">
-            <h3>References (UoEO Harvard Style)</h3>
-          </div>
-          <p class="cd-lead">
-            Example sources that may be cited in the full write-up of this activity.
-            Replace or extend these with the actual references you used.
-          </p>
-          <ol class="cd-ref-list">
-            <li>
-              Blaxter, L., Hughes, C. and Tight, M. (2010) <em>How to Research</em>. 4th edn.
-              Maidenhead: Open University Press.
-            </li>
-            <li>
-              Creswell, J.W. and Creswell, J.D. (2018) <em>Research Design: Qualitative, Quantitative,
-              and Mixed Methods Approaches</em>. 5th edn. Thousand Oaks, CA: Sage.
-            </li>
-            <li>
-              Easterbrook, S. et al. (2008) ‘Selecting empirical methods for software engineering
-              research’, in Shull, F., Singer, J. and Sjøberg, D.I.K. (eds) <em>Guide to Advanced
-              Empirical Software Engineering</em>. London: Springer, pp. 285–311.
-            </li>
-            <li>
-              University of Essex Online (2024) <em>Research Methods and Professional Practice – Unit 3
-              Study Guide</em>. Colchester: University of Essex Online.
-            </li>
-          </ol>
-        </div>
+        <h2 class="section-heading">8. References (UoEO Harvard)</h2>
+
+        <table class="table-block">
+          <caption>Table 8. References</caption>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Reference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+                Creswell, J.W. and Creswell, J.D. (2018) <em>Research Design: Qualitative, Quantitative, and Mixed Methods
+                Approaches</em>. 5th edn. Thousand Oaks, CA: Sage.
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>
+                Blaxter, L., Hughes, C. and Tight, M. (2010) <em>How to Research</em>. 4th edn. Maidenhead: Open University Press.
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>
+                University of Essex Online (2024) <em>Research Methods and Professional Practice – Unit 3 Study Guide</em>.
+                Colchester: University of Essex Online.
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </section>
   </div>
