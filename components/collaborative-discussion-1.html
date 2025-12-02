@@ -2,362 +2,278 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Collaborative Learning Discussion 1 – e-Portfolio</title>
+  <title>Collaborative Discussion 1 – Research Methods e-Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- Page-specific layout for two-column design -->
   <style>
-    :root {
-      --bg: #f5f7fb;
-      --sidebar-bg: #0f172a;
-      --sidebar-accent: #38bdf8;
-      --text-main: #0f172a;
-      --text-muted: #6b7280;
-      --card-bg: #ffffff;
-      --border-soft: #e5e7eb;
-      --radius-lg: 14px;
-      --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.08);
+    .cd-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 1.8rem;
+      margin-top: 2.2rem;
+      align-items: flex-start;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    a {
-      color: var(--sidebar-accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background: radial-gradient(circle at top, #1e293b, #020617);
-      color: #e5e7eb;
-      padding: 24px 22px 32px;
+    .cd-sidebar {
       position: sticky;
-      top: 0;
+      top: 4.5rem;
       align-self: flex-start;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
     }
 
-    .sidebar-header {
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      padding-bottom: 16px;
-      margin-bottom: 8px;
+    .cd-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
 
-    .module-tag {
+    .cd-sidebar-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .cd-tag-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      gap: 0.35rem;
+      padding: 0.18rem 0.7rem;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      color: #e5e7eb;
+      border: 1px solid var(--border);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
     }
 
-    .module-tag span {
+    .cd-tag-pill span.dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
       background: #22c55e;
     }
 
-    .sidebar-title {
-      margin-top: 12px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .sidebar-subtitle {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-top: 4px;
-    }
-
-    .sidebar-section-title {
-      font-size: 11px;
+    .cd-sidebar-section-title {
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #9ca3af;
-      margin-bottom: 6px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1rem 0 0.4rem;
     }
 
-    .sidebar-nav {
+    .cd-nav {
       list-style: none;
-      padding: 0;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+      padding: 0;
     }
 
-    .sidebar-nav li a {
+    .cd-nav li {
+      margin-bottom: 0.15rem;
+    }
+
+    .cd-nav a {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 7px 10px;
+      padding: 0.35rem 0.6rem;
       border-radius: 999px;
-      font-size: 13px;
-      color: #e5e7eb;
+      font-size: 0.8rem;
+      color: var(--muted);
       text-decoration: none;
-      transition: background 0.15s ease, transform 0.1s ease;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
     }
 
-    .sidebar-nav li a span.badge {
-      font-size: 11px;
-      padding: 1px 8px;
+    .cd-nav a span.badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.55rem;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: #9ca3af;
+      border: 1px solid var(--border);
+      color: var(--muted);
     }
 
-    .sidebar-nav li a:hover {
-      background: rgba(148, 163, 184, 0.18);
+    .cd-nav a:hover {
+      background: var(--accent-soft);
+      color: var(--text);
       transform: translateX(1px);
     }
 
-    .sidebar-footer {
-      margin-top: auto;
-      font-size: 12px;
-      color: #9ca3af;
-      border-top: 1px solid rgba(148, 163, 184, 0.35);
-      padding-top: 10px;
+    .cd-sidebar-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      font-size: 0.75rem;
+      color: var(--muted);
     }
 
-    .sidebar-footer strong {
-      color: #e5e7eb;
+    .cd-sidebar-footer strong {
+      color: var(--text);
       font-weight: 500;
     }
 
-    /* Main content */
-    .content {
-      flex: 1;
-      padding: 32px 32px 40px;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
-    .page-header {
-      margin-bottom: 24px;
-    }
-
-    .page-eyebrow {
-      font-size: 12px;
+    .cd-content-header-eyebrow {
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
     }
 
-    .page-title {
-      font-size: 26px;
-      margin: 0 0 6px;
+    .cd-content-header-title {
+      font-size: clamp(1.7rem, 3vw, 2rem);
+      margin: 0 0 0.25rem;
     }
 
-    .page-meta {
-      font-size: 13px;
-      color: var(--text-muted);
+    .cd-content-header-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
-    .pill-row {
+    .cd-pill-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
     }
 
-    .pill {
-      font-size: 11px;
-      padding: 3px 10px;
+    .cd-pill {
+      padding: 0.16rem 0.7rem;
       border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: rgba(255, 255, 255, 0.8);
-      color: var(--text-muted);
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
     }
 
-    /* Card / section styling */
-    section {
-      margin-bottom: 24px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid #e2e8f0;
-      padding: 22px 22px 20px;
-    }
-
-    .card h2,
-    .card h3 {
-      margin-top: 0;
-    }
-
-    .card-header-row {
+    .cd-card-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
-      margin-bottom: 10px;
+      gap: 0.75rem;
+      margin-bottom: 0.55rem;
     }
 
-    .card-meta {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .badge-soft {
+    .cd-badge-soft {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
+      gap: 0.35rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 3px 9px;
+      letter-spacing: 0.09em;
+      padding: 0.16rem 0.6rem;
       border-radius: 999px;
-      background: #eff6ff;
-      color: #1d4ed8;
+      background: var(--accent-soft);
+      color: var(--text);
     }
 
-    .badge-soft span.dot {
+    .cd-badge-soft span.dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: #1d4ed8;
+      background: var(--accent);
     }
 
-    .lead {
-      font-size: 14px;
-      color: #4b5563;
+    .cd-card-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .cd-lead {
+      font-size: 0.9rem;
+      color: var(--muted);
       margin-top: 0;
     }
 
-    p {
-      margin: 0 0 8px;
-      font-size: 14px;
+    .cd-accent-box {
+      margin-top: 0.7rem;
+      padding: 0.75rem 0.8rem;
+      border-radius: 0.8rem;
+      border: 1px dashed var(--border);
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.16), transparent);
+      font-size: 0.82rem;
+      color: var(--muted);
     }
 
-    .accent-box {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px dashed #cbd5f5;
-      background: #f9fafb;
-      font-size: 13px;
-      color: #4b5563;
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 18px;
-    }
-
-    .lo-table {
+    .cd-lo-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
-      margin-top: 6px;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
     }
 
-    .lo-table th,
-    .lo-table td {
-      padding: 8px 10px;
-      border: 1px solid var(--border-soft);
+    .cd-lo-table th,
+    .cd-lo-table td {
+      padding: 0.55rem 0.6rem;
+      border: 1px solid var(--border);
       vertical-align: top;
     }
 
-    .lo-table th {
-      background: #f3f4f6;
+    .cd-lo-table th {
       text-align: left;
+      background: rgba(15, 23, 42, 0.8);
     }
 
-    .ref-list {
-      font-size: 13px;
-      padding-left: 18px;
+    .cd-ref-list {
+      font-size: 0.82rem;
+      padding-left: 1.1rem;
     }
 
-    .ref-list li {
-      margin-bottom: 6px;
+    .cd-ref-list li {
+      margin-bottom: 0.35rem;
     }
 
-    @media (max-width: 960px) {
-      .layout {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        position: relative;
-        width: 100%;
-        border-radius: 0 0 18px 18px;
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.45);
-      }
-
-      .content {
-        padding: 22px 18px 32px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .two-column {
+    @media (max-width: 880px) {
+      .cd-layout {
         grid-template-columns: 1fr;
       }
 
-      .card-header-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .card-meta {
-        text-align: left;
+      .cd-sidebar {
+        position: static;
       }
     }
   </style>
 </head>
 <body>
-<div class="layout">
-  <!-- LEFT SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="module-tag">
-        <span></span>
-        <span>Machine Learning Module</span>
-      </div>
-      <div class="sidebar-title">Collaborative Learning Discussion 1</div>
-      <div class="sidebar-subtitle">
-        Codes of Ethics and Professional Conduct
-      </div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <a href="../index.html" style="text-decoration:none; color:inherit;">
+        <span class="brand-title">Research Methods & Professional Practice</span>
+        <span class="brand-subtitle">e-Portfolio – Component Page</span>
+      </a>
     </div>
+    <nav class="nav">
+      <a href="../index.html#components">Back to Components</a>
+    </nav>
+  </div>
+</header>
 
-    <div>
-      <div class="sidebar-section-title">Sections</div>
-      <ul class="sidebar-nav">
-        <li><a href="#overview">Overview <span class="badge">Start here</span></a></li>
+<main class="page">
+  <!-- Two-column layout -->
+  <div class="cd-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="cd-sidebar">
+      <div class="cd-tag-pill">
+        <span class="dot"></span>
+        <span>e-Portfolio Component</span>
+      </div>
+      <div class="cd-sidebar-title">Collaborative Discussion 1</div>
+      <div class="cd-sidebar-subtitle">
+        Codes of Ethics &amp; Professional Conduct (Units 1–3)
+      </div>
+
+      <div class="cd-sidebar-section-title">Sections</div>
+      <ul class="cd-nav">
+        <li><a href="#overview">Overview <span class="badge">Start</span></a></li>
         <li><a href="#initial-post">Initial Post <span class="badge">ACM &amp; BCS</span></a></li>
         <li><a href="#peer-nelson">Peer: Nelson <span class="badge">Accessibility</span></a></li>
         <li><a href="#peer-jaco">Peer: Jaco <span class="badge">Medical IoT</span></a></li>
@@ -366,479 +282,451 @@
         <li><a href="#learning-outcomes">Learning Outcomes</a></li>
         <li><a href="#references">References</a></li>
       </ul>
-    </div>
 
-    <div class="sidebar-footer">
-      <div><strong>Student:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
-      <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
-      <div><strong>Institution:</strong> University of Essex Online</div>
-    </div>
-  </aside>
-
-  <!-- RIGHT CONTENT -->
-  <main class="content">
-    <header class="page-header">
-      <div class="page-eyebrow">e-Portfolio Activity</div>
-      <h1 class="page-title">Collaborative Learning Discussion 1</h1>
-      <div class="page-meta">
-        Topic: Codes of Ethics and Professional Conduct (ACM &amp; BCS)
+      <div class="cd-sidebar-section-title">Student</div>
+      <div class="cd-sidebar-footer">
+        <div><strong>Name:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
+        <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
+        <div><strong>Institution:</strong> University of Essex Online</div>
       </div>
-      <div class="pill-row">
-        <span class="pill">Ethics in Computing</span>
-        <span class="pill">Accessibility</span>
-        <span class="pill">Professional Codes</span>
-        <span class="pill">Legal &amp; Social Impact</span>
-      </div>
-    </header>
+    </aside>
 
-    <!-- OVERVIEW -->
-    <section id="overview">
-      <div class="card">
-        <div class="card-header-row">
-          <h2>Overview</h2>
-          <div class="card-meta">
-            Activity weeks: Units 1–3<br />
-            Format: Initial post, three peer responses, summary post
+    <!-- RIGHT CONTENT -->
+    <section class="cd-content">
+      <!-- Header -->
+      <section class="section">
+        <div class="section-header">
+          <div class="cd-content-header-eyebrow">Collaborative Learning Discussion</div>
+          <h2 class="cd-content-header-title">Collaborative Discussion 1 – Codes of Ethics &amp; Professional Conduct</h2>
+          <p class="cd-content-header-meta">
+            Activity across Units 1–3 · Initial post, three peer responses, and summary reflection
+          </p>
+          <div class="cd-pill-row">
+            <span class="cd-pill">Ethics in Computing</span>
+            <span class="cd-pill">Accessibility</span>
+            <span class="cd-pill">Professional Codes (ACM &amp; BCS)</span>
+            <span class="cd-pill">Legal &amp; Social Impact</span>
           </div>
         </div>
-        <p class="lead">
-          This collaborative learning discussion explored how the ACM and BCS Codes of
-          Ethics apply to real case studies, with particular emphasis on accessibility,
-          professional responsibility, and the wider legal and social implications of
-          computing practice.
-        </p>
-        <div class="two-column">
-          <div>
-            <h3>Case focus</h3>
-            <p>
-              I selected the ACM case study <em>Accessibility in Software Development</em>,
-              which examines how an inaccessible inline editing feature in the
-              “AllTogether” project excluded users with visual and motor impairments.
-            </p>
-            <p>
-              My contributions analysed this case through ACM Principles 1.1 and 1.2,
-              the BCS Code of Conduct, and relevant legislation such as the Equality
-              Act 2010 and the Americans with Disabilities Act (ADA).
-            </p>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section id="overview" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Overview of the Activity</h3>
           </div>
-          <div>
-            <h3>Evidence included in this page</h3>
-            <ul style="margin:0 0 0 18px;font-size:13px;">
-              <li>Full text of my initial discussion post</li>
-              <li>Three peer responses to different case studies</li>
-              <li>A final summary post demonstrating reflective learning</li>
-              <li>Mapping to the module learning outcomes</li>
-            </ul>
+          <p class="cd-lead">
+            This discussion required applying the ACM and BCS Codes of Ethics to real case studies,
+            with a focus on professional, legal, social and cultural issues that affect computing
+            professionals. My contributions centred on the ACM case study
+            <em>Accessibility in Software Development</em>, which examines how an inaccessible inline
+            editing feature in the “AllTogether” project excluded users with visual and motor impairments.
+          </p>
+          <p>
+            I analysed how this decision conflicted with ACM Principles 1.1 (contribute to society and
+            human well-being) and 1.2 (avoid harm), as well as the BCS requirement to promote equal
+            access and avoid discrimination. I also considered the Equality Act 2010 and the Americans
+            with Disabilities Act (ADA), highlighting that accessibility is both an ethical duty and a
+            legal obligation.
+          </p>
+          <p>
+            This page presents the full text of my initial post, three responses to peers discussing
+            related case studies, and a summary post reflecting on how the discussion shaped my view
+            of professional responsibility in computing.
+          </p>
+        </div>
+      </section>
+
+      <!-- INITIAL POST -->
+      <section id="initial-post" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Initial Post</div>
+              <h3>Accessibility in Software Development – Ethical &amp; Legal Analysis</h3>
+            </div>
+            <div class="cd-card-meta">
+              Posted: 12 November 2025, 18:32<br />
+              Word count: 200+
+            </div>
+          </div>
+
+          <p>
+            The ACM case study <em>Accessibility in Software Development</em> shows ethical problems
+            that appear when software teams ignore accessibility. A project management tool added an
+            inline editing feature that locked out users who were blind or had limited hand movement
+            (Horton, 2022). The ACM Code of Ethics, besides Professional Conduct (2018), states that
+            computing professionals must help society and human welfare (Principle 1.1) plus must not
+            cause harm (Principle 1.2). Because the team placed deadlines above accessibility, the
+            members violated those duties – users were shut out and the firm lost reputation.
+          </p>
+          <p>
+            The BCS Code of Conduct (2023) tells members to support equal access to technology but
+            also not to discriminate against people with disabilities. Both codes treat inclusive
+            design as a professional obligation. Under UK law, failure to provide accessibility can
+            break the Equality Act 2010; under US law, it can breach the Americans with Disabilities
+            Act (ADA). Both statutes require digital services to be reachable. At a social level
+            ignoring accessibility pushes people with disabilities to the margins and clashes with
+            the ethical goal of fair technology.
+          </p>
+          <p>
+            Mäkipää and Naarmala (2024) state that accessibility acts as “a core marker of
+            professional quality” in ethical IT work. Including inclusive design from day one signals
+            professionalism as well as integrity – it guarantees that technology serves every user.
+          </p>
+
+          <div class="cd-accent-box">
+            <strong>Key insight:</strong> I argued that accessibility is simultaneously a legal
+            requirement, a professional duty under ACM/BCS codes, and a social justice issue that
+            determines who can fully participate in digital work.
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- PEER RESPONSE: NELSON -->
+      <section id="peer-nelson" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Peer Response</div>
+              <h3>Response to Nelson – Proactive Ethics &amp; Universal Usability</h3>
+            </div>
+            <div class="cd-card-meta">
+              Posted: 16 November 2025, 09:48<br />
+              Case: AllTogether accessibility
+            </div>
+          </div>
+
+          <p>
+            Nelson, your analysis effectively captures how ethical, legal, and social dimensions
+            converge in the <em>AllTogether</em> case. I particularly appreciate your emphasis on the
+            ACM principles 1.1, 1.2, and 1.4, which collectively underpin fairness and societal
+            well-being. Building on your point, it is worth noting that accessibility is not only a
+            moral responsibility but also a technical and strategic necessity. As Horton (2025)
+            highlights, the lack of inclusive design can lead to systemic barriers that perpetuate
+            inequality in the digital workspace.
+          </p>
+          <p>
+            Your discussion aligns with the BCS Code of Conduct (2023), which stresses acting in the
+            public interest and maintaining high standards of professional competence. Moreover,
+            integrating accessibility from the design phase embodies proactive ethics, reducing
+            retrofit costs and improving user trust (Mäkipää and Naarmala, 2024). This echoes
+            Shneiderman’s (2020) principle of “universal usability,” which suggests that accessible
+            design often enhances overall user experience.
+          </p>
+          <p>
+            I also agree with your observation on reputational harm; beyond compliance, ethical
+            lapses can damage an organisation’s credibility and the profession’s integrity (Lazar,
+            Goldstein and Taylor, 2017). Upholding both ACM and BCS codes thus reflects not only
+            ethical awareness but a deeper professional maturity essential for sustainable innovation.
+          </p>
+
+          <div class="cd-accent-box">
+            <strong>Focus of my response:</strong> reinforcing Nelson’s ethical analysis, connecting
+            accessibility to strategic value, and integrating academic sources on universal
+            usability and proactive ethics.
+          </div>
+        </div>
+      </section>
+
+      <!-- PEER RESPONSE: JACO -->
+      <section id="peer-jaco" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Peer Response</div>
+              <h3>Response to Jaco – Risk, Safety &amp; Trust in Medical Implants</h3>
+            </div>
+            <div class="cd-card-meta">
+              Posted: 16 November 2025, 09:52<br />
+              Case: Medical Implant Risk Analysis
+            </div>
+          </div>
+
+          <p>
+            Jaco, you provide a well-reasoned evaluation of the ethical risks in the medical implant
+            case, especially regarding the consequences of hardcoded values. Your point about
+            “negligible harm” being an unacceptable assumption is strongly supported by medical
+            software literature, which consistently shows that even small programming oversights can
+            escalate into life-threatening failures (Leveson, 2012). This reinforces your argument
+            that the development team failed to meet the BCS requirement to prioritise public health
+            and safety (BCS, 2022).
+          </p>
+          <p>
+            Building on your reference to Nickel (2011), it is also important to consider the duty of
+            transparency and explainability in digital health systems. As Mittelstadt (2017) argues,
+            medical technologies must support informed decision-making and preserve patient
+            autonomy—something impossible when hidden or hardcoded logic governs device behaviour.
+          </p>
+          <p>
+            Your observation about reputational risk aligns with broader discussions in professional
+            ethics. Flanagan and Williams (2018) emphasise that trust in digital medical systems is
+            fragile, and one incident of poor design can undermine confidence in an entire class of
+            devices.
+          </p>
+          <p>
+            Finally, I agree that cost-saving should never override rigorous risk analysis.
+            High-stakes technologies require robust verification processes, echoing ACM principles on
+            avoiding harm and ensuring professional competence (ACM, 2018).
+          </p>
+
+          <div class="cd-accent-box">
+            <strong>Focus of my response:</strong> extending Jaco’s analysis with evidence from
+            safety engineering and ethics of digital medicine to emphasise autonomy, transparency,
+            and trust.
+          </div>
+        </div>
+      </section>
+
+      <!-- PEER RESPONSE: NIKOLAOS -->
+      <section id="peer-nikolaos" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Peer Response</div>
+              <h3>Response to Nikolaos – Bias, Accountability &amp; AI Governance</h3>
+            </div>
+            <div class="cd-card-meta">
+              Posted: 16 November 2025, 09:55<br />
+              Case: Blocker Plus content filter
+            </div>
+          </div>
+
+          <p>
+            Nikolaos, your analysis provides a compelling critique of the Blocker Plus case and
+            clearly situates the system’s failures within both ethical and professional misconduct.
+            I agree strongly with your observation that the manipulation of the feedback loop
+            reflects a breach of the BCS commitment to act in the public interest and avoid
+            discriminatory outcomes (BCS, 2021). As Barocas and Selbst (2016) note, biased training
+            data can embed structural inequalities into automated decision-making, making the
+            developers’ lack of safeguards particularly problematic.
+          </p>
+          <p>
+            Your emphasis on transparency and accountability is also well placed. Machine learning
+            systems deployed in public-facing contexts must ensure explainability so that affected
+            groups can understand and challenge harmful outputs (Wachter, Mittelstadt and Floridi,
+            2017). The developers’ decision to continue using a corrupted model contravened both
+            technical integrity and the ACM principle of avoiding harm through professional
+            negligence (ACM, 2018).
+          </p>
+          <p>
+            Additionally, the regulatory landscape you reference is evolving rapidly. The EU AI
+            Act’s high-risk systems requirements—such as documentation, monitoring, and human
+            oversight—directly address the failures seen in Blocker Plus (European Commission, 2024).
+            This reinforces your point that ethical responsibility must be matched by enforceable
+            mechanisms.
+          </p>
+          <p>
+            Overall, your post demonstrates how professionalism in computing must extend beyond
+            compliance toward active stewardship of socially impactful technologies.
+          </p>
+
+          <div class="cd-accent-box">
+            <strong>Focus of my response:</strong> linking the Blocker Plus case to wider debates on
+            algorithmic bias, explainability and emerging AI regulation, showing awareness of current
+            governance trends.
+          </div>
+        </div>
+      </section>
+
+      <!-- SUMMARY POST -->
+      <section id="summary-post" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Summary Post</div>
+              <h3>Reflective Synthesis – Accessibility as Core Professional Duty</h3>
+            </div>
+            <div class="cd-card-meta">
+              Posted: 22 November 2025, 07:18<br />
+              Number of replies: 0
+            </div>
+          </div>
+
+          <p>
+            The discussion on the <em>Accessibility in Software Development</em> case has shown that
+            accessibility failures are not only technical errors but also ethical and professional
+            failures. My first post stated that when AllTogether released an inaccessible feature,
+            the team broke two central ACM rules – advance human welfare and not harm (ACM, 2018).
+            The release also violated the BCS rule requiring that every user receive equal access
+            and that discrimination be avoided (BCS, 2023).
+          </p>
+          <p>
+            Peer feedback reinforced this view, stressing that harm did not arise merely from poor
+            design. Harm arose because the team treated accessibility as optional. Pavlos cited
+            “systemic exclusion” (Lazar, Goldstein, and Taylor, 2015) and showed that even
+            unintentional choices can lead to discrimination when accessibility ranks low on the
+            priority list. This helped me see that ethical software design demands more than ticking
+            compliance boxes. It requires recognising that routine design decisions determine what
+            users can do and how much control they retain.
+          </p>
+          <p>
+            Peers also stressed that accessibility signals professional quality. Mäkipää and
+            Naarmala (2024) argue for accessibility work that starts early and continues throughout
+            the project. Shneiderman (2020) states that universal usability benefits all users, not
+            just those with disabilities. Taken together, the peer comments broadened my view.
+            Accessibility is not an extra feature. It is a core duty of responsible engineering, a
+            legal requirement and a prerequisite for an inclusive digital culture.
+          </p>
+          <p>
+            In short, the discussion has demonstrated that ethical professionalism obliges teams to
+            weave accessibility into the project from day one and to build organisations where any
+            member can raise an accessibility issue without hesitation. Only under those conditions
+            will the ACM or BCS principles guide daily decisions rather than remain abstract
+            statements.
+          </p>
+
+          <div class="cd-accent-box">
+            <strong>Reflection:</strong> This activity deepened my understanding of how professional
+            codes, law and day-to-day design decisions intersect. Accessibility emerged as a
+            non-negotiable element of ethical computing practice.
+          </div>
+        </div>
+      </section>
+
+      <!-- LEARNING OUTCOMES -->
+      <section id="learning-outcomes" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Learning Outcomes Mapping</h3>
+          </div>
+          <p class="cd-lead">
+            The table below summarises how each artefact in this activity demonstrates specific
+            module learning outcomes.
+          </p>
+
+          <table class="cd-lo-table">
+            <thead>
+              <tr>
+                <th>Activity Component</th>
+                <th>Evidence of Learning</th>
+                <th>Learning Outcomes Demonstrated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Initial Post</td>
+                <td>
+                  Applied ACM and BCS Codes of Ethics plus UK/US legislation to a concrete
+                  accessibility case; evaluated technical decisions in terms of social harm.
+                </td>
+                <td>
+                  Appraise professional, legal, social, cultural and ethical issues that affect
+                  computing professionals.
+                </td>
+              </tr>
+              <tr>
+                <td>Peer Response – Nelson</td>
+                <td>
+                  Extended another student’s argument using additional academic sources on universal
+                  usability and proactive ethics; highlighted strategic and reputational aspects.
+                </td>
+                <td>
+                  Communicate effectively in a professional academic context; synthesise literature
+                  in support of ethical positions.
+                </td>
+              </tr>
+              <tr>
+                <td>Peer Response – Jaco</td>
+                <td>
+                  Linked software engineering risks in medical implants to transparency, autonomy and
+                  trust, drawing on safety-critical systems literature.
+                </td>
+                <td>
+                  Critically assess risk and responsibility in safety-critical computing domains.
+                </td>
+              </tr>
+              <tr>
+                <td>Peer Response – Nikolaos</td>
+                <td>
+                  Connected algorithmic bias and content filtering to emerging AI governance
+                  frameworks, including the EU AI Act.
+                </td>
+                <td>
+                  Analyse how regulation and governance frameworks shape ethical AI practice.
+                </td>
+              </tr>
+              <tr>
+                <td>Summary Post</td>
+                <td>
+                  Synthesised peer feedback and literature to refine my understanding of
+                  accessibility as a core marker of professional quality and social inclusion.
+                </td>
+                <td>
+                  Reflect on personal learning and articulate how collaborative discussion
+                  influences professional values and future practice.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- REFERENCES -->
+      <section id="references" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <h3>References (UoEO Harvard Style)</h3>
+          </div>
+          <p class="cd-lead">
+            The following list consolidates the key sources cited across my initial post, peer
+            responses and summary post.
+          </p>
+          <ol class="cd-ref-list">
+            <li>
+              ACM (2018) <em>ACM Code of Ethics and Professional Conduct</em>. New York: Association
+              for Computing Machinery.
+            </li>
+            <li>
+              Barocas, S. and Selbst, A.D. (2016) ‘Big data’s disparate impact’,
+              <em>California Law Review</em>, 104(3), pp. 671–732.
+            </li>
+            <li>
+              BCS (2021, 2022, 2023) <em>BCS Code of Conduct</em>. Swindon: British Computer Society.
+            </li>
+            <li>
+              European Commission (2024) <em>EU Artificial Intelligence Act: Final Legal Text</em>.
+              Brussels: European Union.
+            </li>
+            <li>
+              Horton, S. (2022, 2025) ‘Accessibility in Software Development: Case Study’. ACM.
+            </li>
+            <li>
+              Lazar, J., Goldstein, D. and Taylor, A. (2015, 2017)
+              <em>Ensuring Digital Accessibility Through Process and Policy</em>. Boca Raton: CRC
+              Press / Morgan Kaufmann.
+            </li>
+            <li>
+              Leveson, N. (2012) <em>Engineering a Safer World: Systems Thinking Applied to Safety</em>.
+              Cambridge, MA: MIT Press.
+            </li>
+            <li>
+              Mäkipää, J.–P. and Naarmala, J. (2024) ‘Accessibility as professional quality in
+              software development’, <em>Journal of Computing Ethics</em>, 15(2), pp. 145–162.
+            </li>
+            <li>
+              Mittelstadt, B. (2017) ‘Transparent, explainable and accountable medical algorithms’,
+              <em>Journal of Ethics in Technology</em>, 21(3), pp. 45–60.
+            </li>
+            <li>
+              Shneiderman, B. (2020) <em>Designing the User Interface: Strategies for Effective
+              Human-Computer Interaction</em>. 6th edn. London: Pearson.
+            </li>
+            <li>
+              Wachter, S., Mittelstadt, B. and Floridi, L. (2017) ‘Why a right to explanation of
+              automated decision-making does not exist in the GDPR’, <em>International Data Privacy
+              Law</em>, 7(2), pp. 76–99.
+            </li>
+          </ol>
+        </div>
+      </section>
     </section>
+  </div>
+</main>
 
-    <!-- INITIAL POST -->
-    <section id="initial-post">
-      <div class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="badge-soft"><span class="dot"></span> Initial Post</div>
-            <h2>Accessibility in Software Development – Ethical &amp; Legal Analysis</h2>
-          </div>
-          <div class="card-meta">
-            Posted: 12 November 2025, 18:32<br />
-            Word count: 200+
-          </div>
-        </div>
-
-        <p>
-          The ACM case study <em>Accessibility in Software Development</em> shows ethical
-          problems that appear when software teams ignore accessibility. A project
-          management tool added an inline editing feature that locked out users who were
-          blind or had limited hand movement (Horton, 2022). The ACM Code of Ethics,
-          besides Professional Conduct (2018), states that computing professionals must
-          help society and human welfare (Principle 1.1) plus must not cause harm
-          (Principle 1.2). Because the team placed deadlines above accessibility, the
-          members violated those duties – users were shut out and the firm lost
-          reputation.
-        </p>
-        <p>
-          The BCS Code of Conduct (2023) tells members to support equal access to
-          technology but also not to discriminate against people with disabilities. Both
-          codes treat inclusive design as a professional obligation. Under UK law,
-          failure to provide accessibility can break the Equality Act 2010; under US
-          law, it can breach the Americans with Disabilities Act (ADA). Both statutes
-          require digital services to be reachable. At a social level ignoring
-          accessibility pushes people with disabilities to the margins and clashes with
-          the ethical goal of fair technology.
-        </p>
-        <p>
-          Mäkipää and Naarmala (2024) state that accessibility acts as “a core marker of
-          professional quality” in ethical IT work. Including inclusive design from day
-          one signals professionalism as well as integrity – it guarantees that
-          technology serves every user.
-        </p>
-
-        <div class="accent-box">
-          <strong>Key insight:</strong> I argued that accessibility is simultaneously
-          a legal requirement, a professional duty under ACM/BCS codes, and a social
-          justice issue that determines who can fully participate in digital work.
-        </div>
-      </div>
-    </section>
-
-    <!-- PEER RESPONSE: NELSON -->
-    <section id="peer-nelson">
-      <div class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="badge-soft"><span class="dot"></span> Peer Response</div>
-            <h2>Response to Nelson – Proactive Ethics &amp; Universal Usability</h2>
-          </div>
-          <div class="card-meta">
-            Posted: 16 November 2025, 09:48<br />
-            Case: AllTogether accessibility
-          </div>
-        </div>
-
-        <p>
-          Nelson, your analysis effectively captures how ethical, legal, and social
-          dimensions converge in the <em>AllTogether</em> case. I particularly
-          appreciate your emphasis on the ACM principles 1.1, 1.2, and 1.4, which
-          collectively underpin fairness and societal well-being. Building on your
-          point, it is worth noting that accessibility is not only a moral
-          responsibility but also a technical and strategic necessity. As Horton (2025)
-          highlights, the lack of inclusive design can lead to systemic barriers that
-          perpetuate inequality in the digital workspace.
-        </p>
-        <p>
-          Your discussion aligns with the BCS Code of Conduct (2023), which stresses
-          acting in the public interest and maintaining high standards of professional
-          competence. Moreover, integrating accessibility from the design phase embodies
-          proactive ethics, reducing retrofit costs and improving user trust (Mäkipää
-          and Naarmala, 2024). This echoes Shneiderman’s (2020) principle of
-          “universal usability,” which suggests that accessible design often enhances
-          overall user experience.
-        </p>
-        <p>
-          I also agree with your observation on reputational harm; beyond compliance,
-          ethical lapses can damage an organisation’s credibility and the profession’s
-          integrity (Lazar, Goldstein and Taylor, 2017). Upholding both ACM and BCS
-          codes thus reflects not only ethical awareness but a deeper professional
-          maturity essential for sustainable innovation.
-        </p>
-
-        <div class="accent-box">
-          <strong>Focus of my response:</strong> reinforcing Nelson’s ethical analysis,
-          connecting accessibility to strategic value, and integrating academic sources
-          on universal usability and proactive ethics.
-        </div>
-      </div>
-    </section>
-
-    <!-- PEER RESPONSE: JACO -->
-    <section id="peer-jaco">
-      <div class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="badge-soft"><span class="dot"></span> Peer Response</div>
-            <h2>Response to Jaco – Risk, Safety &amp; Trust in Medical Implants</h2>
-          </div>
-          <div class="card-meta">
-            Posted: 16 November 2025, 09:52<br />
-            Case: Medical Implant Risk Analysis
-          </div>
-        </div>
-
-        <p>
-          Jaco, you provide a well-reasoned evaluation of the ethical risks in the
-          medical implant case, especially regarding the consequences of hardcoded
-          values. Your point about “negligible harm” being an unacceptable assumption
-          is strongly supported by medical software literature, which consistently shows
-          that even small programming oversights can escalate into life-threatening
-          failures (Leveson, 2012). This reinforces your argument that the development
-          team failed to meet the BCS requirement to prioritise public health and safety
-          (BCS, 2022).
-        </p>
-        <p>
-          Building on your reference to Nickel (2011), it is also important to consider
-          the duty of transparency and explainability in digital health systems. As
-          Mittelstadt (2017) argues, medical technologies must support informed
-          decision-making and preserve patient autonomy—something impossible when
-          hidden or hardcoded logic governs device behaviour.
-        </p>
-        <p>
-          Your observation about reputational risk aligns with broader discussions in
-          professional ethics. Flanagan and Williams (2018) emphasise that trust in
-          digital medical systems is fragile, and one incident of poor design can
-          undermine confidence in an entire class of devices.
-        </p>
-        <p>
-          Finally, I agree that cost-saving should never override rigorous risk
-          analysis. High-stakes technologies require robust verification processes,
-          echoing ACM principles on avoiding harm and ensuring professional competence
-          (ACM, 2018).
-        </p>
-
-        <div class="accent-box">
-          <strong>Focus of my response:</strong> extending Jaco’s analysis with
-          evidence from safety engineering and ethics of digital medicine to emphasise
-          autonomy, transparency, and trust.
-        </div>
-      </div>
-    </section>
-
-    <!-- PEER RESPONSE: NIKOLAOS -->
-    <section id="peer-nikolaos">
-      <div class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="badge-soft"><span class="dot"></span> Peer Response</div>
-            <h2>Response to Nikolaos – Bias, Accountability &amp; AI Governance</h2>
-          </div>
-          <div class="card-meta">
-            Posted: 16 November 2025, 09:55<br />
-            Case: Blocker Plus content filter
-          </div>
-        </div>
-
-        <p>
-          Nikolaos, your analysis provides a compelling critique of the Blocker Plus
-          case and clearly situates the system’s failures within both ethical and
-          professional misconduct. I agree strongly with your observation that the
-          manipulation of the feedback loop reflects a breach of the BCS commitment to
-          act in the public interest and avoid discriminatory outcomes (BCS, 2021). As
-          Barocas and Selbst (2016) note, biased training data can embed structural
-          inequalities into automated decision-making, making the developers’ lack of
-          safeguards particularly problematic.
-        </p>
-        <p>
-          Your emphasis on transparency and accountability is also well placed. Machine
-          learning systems deployed in public-facing contexts must ensure explainability
-          so that affected groups can understand and challenge harmful outputs (Wachter,
-          Mittelstadt and Floridi, 2017). The developers’ decision to continue using a
-          corrupted model contravened both technical integrity and the ACM principle of
-          avoiding harm through professional negligence (ACM, 2018).
-        </p>
-        <p>
-          Additionally, the regulatory landscape you reference is evolving rapidly. The
-          EU AI Act’s high-risk systems requirements—such as documentation, monitoring,
-          and human oversight—directly address the failures seen in Blocker Plus
-          (European Commission, 2024). This reinforces your point that ethical
-          responsibility must be matched by enforceable mechanisms.
-        </p>
-        <p>
-          Overall, your post demonstrates how professionalism in computing must extend
-          beyond compliance toward active stewardship of socially impactful technologies.
-        </p>
-
-        <div class="accent-box">
-          <strong>Focus of my response:</strong> linking the Blocker Plus case to
-          wider debates on algorithmic bias, explainability and emerging AI regulation,
-          showing awareness of current governance trends.
-        </div>
-      </div>
-    </section>
-
-    <!-- SUMMARY POST -->
-    <section id="summary-post">
-      <div class="card">
-        <div class="card-header-row">
-          <div>
-            <div class="badge-soft"><span class="dot"></span> Summary Post</div>
-            <h2>Reflective Synthesis – Accessibility as Core Professional Duty</h2>
-          </div>
-          <div class="card-meta">
-            Posted: 22 November 2025, 07:18<br />
-            Number of replies: 0
-          </div>
-        </div>
-
-        <p>
-          The discussion on the <em>Accessibility in Software Development</em> case has
-          shown that accessibility failures are not only technical errors but also
-          ethical and professional failures. My first post stated that when AllTogether
-          released an inaccessible feature, the team broke two central ACM rules –
-          advance human welfare and not harm (ACM, 2018). The release also violated the
-          BCS rule requiring that every user receive equal access and that discrimination
-          be avoided (BCS, 2023).
-        </p>
-        <p>
-          Peer feedback reinforced this view, stressing that harm did not arise merely
-          from poor design. Harm arose because the team treated accessibility as
-          optional. Pavlos cited “systemic exclusion” (Lazar, Goldstein, and Taylor,
-          2015) and showed that even unintentional choices can lead to discrimination
-          when accessibility ranks low on the priority list. This helped me see that
-          ethical software design demands more than ticking compliance boxes. It
-          requires recognising that routine design decisions determine what users can do
-          and how much control they retain.
-        </p>
-        <p>
-          Peers also stressed that accessibility signals professional quality. Mäkipää
-          and Naarmala (2024) argue for accessibility work that starts early and
-          continues throughout the project. Shneiderman (2020) states that universal
-          usability benefits all users, not just those with disabilities. Taken
-          together, the peer comments broadened my view. Accessibility is not an extra
-          feature. It is a core duty of responsible engineering, a legal requirement and
-          a prerequisite for an inclusive digital culture.
-        </p>
-        <p>
-          In short, the discussion has demonstrated that ethical professionalism obliges
-          teams to weave accessibility into the project from day one and to build
-          organisations where any member can raise an accessibility issue without
-          hesitation. Only under those conditions will the ACM or BCS principles guide
-          daily decisions rather than remain abstract statements.
-        </p>
-
-        <div class="accent-box">
-          <strong>Reflection:</strong> This activity deepened my understanding of how
-          professional codes, law and day-to-day design decisions intersect. Accessibility
-          emerged as a non-negotiable element of ethical computing practice.
-        </div>
-      </div>
-    </section>
-
-    <!-- LEARNING OUTCOMES -->
-    <section id="learning-outcomes">
-      <div class="card">
-        <div class="card-header-row">
-          <h2>Learning Outcomes Mapping</h2>
-        </div>
-        <p class="lead">
-          The table below summarises how each artefact in this activity demonstrates
-          specific module learning outcomes.
-        </p>
-
-        <table class="lo-table">
-          <thead>
-            <tr>
-              <th>Activity Component</th>
-              <th>Evidence of Learning</th>
-              <th>Learning Outcomes Demonstrated</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Initial Post</td>
-              <td>
-                Applied ACM and BCS Codes of Ethics plus UK/US legislation to a concrete
-                accessibility case; evaluated technical decisions in terms of social harm.
-              </td>
-              <td>
-                Appraise professional, legal, social, cultural and ethical issues that
-                affect computing professionals.
-              </td>
-            </tr>
-            <tr>
-              <td>Peer Response – Nelson</td>
-              <td>
-                Extended another student’s argument using additional academic sources on
-                universal usability and proactive ethics; highlighted strategic and
-                reputational aspects.
-              </td>
-              <td>
-                Communicate effectively in a professional academic context; synthesise
-                literature in support of ethical positions.
-              </td>
-            </tr>
-            <tr>
-              <td>Peer Response – Jaco</td>
-              <td>
-                Linked software engineering risks in medical implants to transparency,
-                autonomy and trust, drawing on safety-critical systems literature.
-              </td>
-              <td>
-                Critically assess risk and responsibility in safety-critical computing
-                domains.
-              </td>
-            </tr>
-            <tr>
-              <td>Peer Response – Nikolaos</td>
-              <td>
-                Connected algorithmic bias and content filtering to emerging AI governance
-                frameworks, including the EU AI Act.
-              </td>
-              <td>
-                Analyse how regulation and governance frameworks shape ethical AI
-                practice.
-              </td>
-            </tr>
-            <tr>
-              <td>Summary Post</td>
-              <td>
-                Synthesised peer feedback and literature to refine my understanding of
-                accessibility as a core marker of professional quality and social
-                inclusion.
-              </td>
-              <td>
-                Reflect on personal learning and articulate how collaborative discussion
-                influences professional values and future practice.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- REFERENCES -->
-    <section id="references">
-      <div class="card">
-        <div class="card-header-row">
-          <h2>References (UoEO Harvard Style)</h2>
-        </div>
-        <p class="lead">
-          The following list consolidates the key sources cited across my initial post,
-          peer responses and summary post.
-        </p>
-        <ol class="ref-list">
-          <li>
-            ACM (2018) <em>ACM Code of Ethics and Professional Conduct</em>. New York:
-            Association for Computing Machinery.
-          </li>
-          <li>
-            Barocas, S. and Selbst, A.D. (2016) ‘Big data’s disparate impact’,
-            <em>California Law Review</em>, 104(3), pp. 671–732.
-          </li>
-          <li>
-            BCS (2021, 2022, 2023) <em>BCS Code of Conduct</em>. Swindon: British
-            Computer Society.
-          </li>
-          <li>
-            European Commission (2024) <em>EU Artificial Intelligence Act: Final Legal
-            Text</em>. Brussels: European Union.
-          </li>
-          <li>
-            Horton, S. (2022, 2025) ‘Accessibility in Software Development: Case Study’.
-            ACM.
-          </li>
-          <li>
-            Lazar, J., Goldstein, D. and Taylor, A. (2015, 2017)
-            <em>Ensuring Digital Accessibility Through Process and Policy</em>. Boca
-            Raton: CRC Press / Morgan Kaufmann.
-          </li>
-          <li>
-            Leveson, N. (2012) <em>Engineering a Safer World: Systems Thinking Applied
-            to Safety</em>. Cambridge, MA: MIT Press.
-          </li>
-          <li>
-            Mäkipää, J.–P. and Naarmala, J. (2024) ‘Accessibility as professional
-            quality in software development’, <em>Journal of Computing Ethics</em>,
-            15(2), pp. 145–162.
-          </li>
-          <li>
-            Mittelstadt, B. (2017) ‘Transparent, explainable and accountable medical
-            algorithms’, <em>Journal of Ethics in Technology</em>, 21(3), pp. 45–60.
-          </li>
-          <li>
-            Shneiderman, B. (2020) <em>Designing the User Interface: Strategies for
-            Effective Human-Computer Interaction</em>. 6th edn. London: Pearson.
-          </li>
-          <li>
-            Wachter, S., Mittelstadt, B. and Floridi, L. (2017) ‘Why a right to
-            explanation of automated decision-making does not exist in the GDPR’,
-            <em>International Data Privacy Law</em>, 7(2), pp. 76–99.
-          </li>
-        </ol>
-      </div>
-    </section>
-  </main>
-</div>
+<footer class="footer">
+  <p>&copy; 2025 Abdullah Alshibli · Research Methods &amp; Professional Practice e-Portfolio</p>
+</footer>
 </body>
 </html>
