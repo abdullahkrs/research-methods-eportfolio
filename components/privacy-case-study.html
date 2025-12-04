@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Case Study on Privacy – e-Portfolio Component</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- Page-specific layout (similar to other component pages) -->
+  <style>
+    .cd-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 1.8rem;
+      margin-top: 2.2rem;
+      align-items: flex-start;
+    }
+
+    .cd-sidebar {
+      position: sticky;
+      top: 4.5rem;
+      align-self: flex-start;
+      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.85rem;
+    }
+
+    .cd-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .cd-sidebar-subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .cd-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .cd-tag-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .cd-sidebar-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin: 1rem 0 0.4rem;
+    }
+
+    .cd-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cd-nav li {
+      margin-bottom: 0.15rem;
+    }
+
+    .cd-nav a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .cd-nav a span.badge {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .cd-nav a:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      transform: translateX(1px);
+    }
+
+    .cd-sidebar-footer {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .cd-content-header-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cd-content-header-title {
+      margin: 0 0 0.35rem;
+      font-size: 1.4rem;
+    }
+
+    .cd-content-header-meta {
+      margin: 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .cd-pill-row {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .cd-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .cd-badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .cd-badge-soft span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .cd-card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.2rem;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+    }
+
+    .cd-lead {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .cd-case-box {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 1rem 1rem 1.1rem;
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.16), rgba(15, 23, 42, 0.95));
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .cd-question-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .cd-answer-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
+
+    .cd-summary-list {
+      font-size: 0.9rem;
+      padding-left: 1.1rem;
+    }
+
+    .cd-lo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    .cd-lo-table th,
+    .cd-lo-table td {
+      padding: 0.55rem 0.6rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .cd-lo-table th {
+      text-align: left;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    @media (max-width: 880px) {
+      .cd-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .cd-sidebar {
+        position: static;
+      }
+
+      .cd-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <a href="../index.html" style="text-decoration:none; color:inherit;">
+        <span class="brand-title">Research Methods & Professional Practice</span>
+        <span class="brand-subtitle">e-Portfolio – Component Page</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="../index.html#components">Back to Components</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="cd-layout">
+    <!-- SIDEBAR -->
+    <aside class="cd-sidebar">
+      <div class="cd-tag-pill">
+        <span class="dot"></span>
+        <span>Case Study</span>
+      </div>
+      <div class="cd-sidebar-title">Case Study on Privacy</div>
+      <div class="cd-sidebar-subtitle">
+        Records Clerk, Researcher, and Access to Personal Data
+      </div>
+
+      <div class="cd-sidebar-section-title">Sections</div>
+      <ul class="cd-nav">
+        <li><a href="#overview">Overview <span class="badge">Start</span></a></li>
+        <li><a href="#case">The Case <span class="badge">Scenario</span></a></li>
+        <li><a href="#q1">Question 1 <span class="badge">Role</span></a></li>
+        <li><a href="#q2">Question 2 <span class="badge">Gatekeeper</span></a></li>
+        <li><a href="#q3">Question 3 <span class="badge">Department</span></a></li>
+        <li><a href="#q4">Question 4 <span class="badge">Research</span></a></li>
+        <li><a href="#summary">Summary & Principles</a></li>
+        <li><a href="#learning-outcomes">Learning Outcomes</a></li>
+      </ul>
+
+      <div class="cd-sidebar-section-title">Student</div>
+      <div class="cd-sidebar-footer">
+        <div><strong>Name:</strong> Abdullah Khalfan Rashid Abdullah Al-shibli</div>
+        <div><strong>Programme:</strong> MSc Artificial Intelligence</div>
+        <div><strong>Institution:</strong> University of Essex Online</div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <section class="cd-content">
+      <!-- Overview -->
+      <section id="overview" class="section">
+        <div class="section-header">
+          <div class="cd-content-header-eyebrow">Case Study – Privacy</div>
+          <h2 class="cd-content-header-title">
+            Case Study on Privacy – Access to Property Tax Records
+          </h2>
+          <p class="cd-content-header-meta">
+            This e-Portfolio component analyses a privacy case involving a records clerk, a researcher, 
+            and access to government-held property tax data, focusing on ethical issues such as 
+            confidentiality, consent, and professional responsibility.
+          </p>
+          <div class="cd-pill-row">
+            <span class="cd-pill">Privacy</span>
+            <span class="cd-pill">Data Protection</span>
+            <span class="cd-pill">Research Ethics</span>
+            <span class="cd-pill">Professional Conduct</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Case -->
+      <section id="case" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>The Case</h3>
+          </div>
+          <div class="cd-case-box">
+            <p><strong>Title: Case Study on Privacy</strong></p>
+            <p>
+              Ricardo works for the records department of his local government as a computer records clerk, 
+              where he has access to files of property tax records. For a scientific study, a researcher, 
+              Beth, has been granted access to the numerical portion “but not the corresponding names” of some records.
+            </p>
+            <p>
+              Beth finds some information that she would like to use, but she needs the names and addresses 
+              corresponding with certain properties. Beth asks Ricardo to retrieve these names and addresses, 
+              so she can contact these people for more information and for permission to do further study.
+            </p>
+            <p>
+              The following questions explore the ethical issues involved in deciding how Ricardo, Beth, 
+              and the Records department should act.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Question 1 -->
+      <section id="q1" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Question 1</div>
+              <h3>If Ricardo is not responsible for determining allowable access, should he release the names and addresses?</h3>
+            </div>
+          </div>
+
+          <p class="cd-question-title">Question:</p>
+          <p>
+            If Ricardo is not responsible for determining allowable access, should he release the names and addresses to Beth?
+          </p>
+
+          <p class="cd-answer-label">Short answer:</p>
+          <p>
+            <strong>No.</strong> If Ricardo is not authorised to decide access, he should not release the names and addresses.
+          </p>
+
+          <p class="cd-answer-label">Ethical issues involved:</p>
+          <ul>
+            <li>
+              <strong>Confidentiality:</strong> Ricardo has a duty to protect the confidentiality of personal data 
+              held by the records department. Disclosing names and addresses without authorisation is a violation 
+              of this duty.
+            </li>
+            <li>
+              <strong>Role responsibility:</strong> His job as a records clerk requires him to follow formal policies 
+              and procedures for data access. Acting outside those procedures undermines institutional controls.
+            </li>
+            <li>
+              <strong>Legal and policy compliance:</strong> Government records are typically protected by data 
+              protection laws and internal regulations. Ricardo is obligated to comply with these, even if the 
+              requester is a legitimate researcher.
+            </li>
+            <li>
+              <strong>Trust in public institutions:</strong> Citizens expect that personal data given to the 
+              government will not be disclosed arbitrarily. Ricardo’s unauthorised disclosure could damage 
+              public trust in the records department.
+            </li>
+          </ul>
+          <p>
+            Ethically, Ricardo should decline the request and refer Beth to the appropriate authority or data 
+            protection officer who is formally responsible for deciding access.
+          </p>
+        </div>
+      </section>
+
+      <!-- Question 2 -->
+      <section id="q2" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Question 2</div>
+              <h3>What if Ricardo is responsible for determining allowable access?</h3>
+            </div>
+          </div>
+
+          <p class="cd-question-title">Question:</p>
+          <p>
+            Suppose Ricardo were responsible for determining allowable access to the files. What ethical issues 
+            would be involved in his deciding whether to grant access to Beth?
+          </p>
+
+          <p class="cd-answer-label">Key ethical issues:</p>
+          <ul>
+            <li>
+              <strong>Privacy vs. research benefit:</strong> Ricardo must balance individuals’ right to privacy 
+              against the potential social or scientific value of Beth’s research. Even worthwhile research does 
+              not automatically justify releasing identifiable data.
+            </li>
+            <li>
+              <strong>Informed consent:</strong> The individuals did not originally consent to have their data used 
+              for research. Ricardo must consider whether contacting them via information held for tax purposes is 
+              appropriate without prior consent.
+            </li>
+            <li>
+              <strong>Purpose limitation:</strong> Property tax data was collected for administrative reasons, not 
+              for research. Using that data for a new purpose without safeguards may violate the principle of using 
+              data only for its original, stated purpose, unless a clear legal and ethical basis exists.
+            </li>
+            <li>
+              <strong>Data minimisation:</strong> Ricardo should ask whether Beth truly needs names and addresses, 
+              or whether anonymised or aggregated data could achieve the research aims with less privacy risk.
+            </li>
+            <li>
+              <strong>Risk of harm and misuse:</strong> Once Beth receives identifiable data, there is a risk it 
+              could be misused, mishandled, or shared beyond the original study. Ricardo has a duty to consider 
+              these risks before granting access.
+            </li>
+            <li>
+              <strong>Impartiality and fairness:</strong> Decisions should be based on clear criteria and policy, 
+              not on personal sympathy for Beth or the attractiveness of the project.
+            </li>
+          </ul>
+          <p>
+            In this scenario, Ricardo’s ethical responsibility is to apply institutional policy consistently, 
+            minimise risk to individuals, and ensure that any release of data is properly justified, documented, 
+            and subject to appropriate oversight.
+          </p>
+        </div>
+      </section>
+
+      <!-- Question 3 -->
+      <section id="q3" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Question 3</div>
+              <h3>Should Beth be allowed to contact the individuals involved?</h3>
+            </div>
+          </div>
+
+          <p class="cd-question-title">Question:</p>
+          <p>
+            Should Beth be allowed to contact the individuals involved? That is, should the Records department 
+            release individuals’ names to a researcher? What are the ethical issues for the Records department 
+            to consider?
+          </p>
+
+          <p class="cd-answer-label">Ethical issues for the Records department:</p>
+          <ul>
+            <li>
+              <strong>Respect for privacy and autonomy:</strong> Individuals have a right to control who uses 
+              their personal data and for what purpose. Releasing names and addresses without their consent may 
+              infringe this right.
+            </li>
+            <li>
+              <strong>Purpose limitation and trust:</strong> The data was collected for tax administration. 
+              Reusing it to enable research contact can feel like a “function creep”, risking loss of trust in 
+              how government uses personal information.
+            </li>
+            <li>
+              <strong>Controlled and proportional access:</strong> If contact is permitted at all, it may be more 
+              ethical for the Records department to contact individuals on Beth’s behalf (e.g. via an official 
+              letter) rather than handing over the raw contact details.
+            </li>
+            <li>
+              <strong>Ethical review and oversight:</strong> The department should consider whether Beth has 
+              appropriate approval from an ethics committee or institutional review board, and whether data 
+              protection requirements are met.
+            </li>
+            <li>
+              <strong>Security and accountability:</strong> Once data leaves the department, ensuring proper 
+              storage, security, and eventual deletion becomes more difficult. Clear agreements and accountability 
+              mechanisms are needed.
+            </li>
+          </ul>
+          <p>
+            In summary, the department should be extremely cautious about releasing identifiable information. 
+            If contact is allowed, it should follow a transparent process, with ethical review and safeguards that 
+            respect individuals’ privacy and autonomy.
+          </p>
+        </div>
+      </section>
+
+      <!-- Question 4 -->
+      <section id="q4" class="section">
+        <div class="card">
+          <div class="cd-card-header">
+            <div>
+              <div class="cd-badge-soft"><span class="dot"></span> Question 4</div>
+              <h3>What options are available to Beth if responses are mixed?</h3>
+            </div>
+          </div>
+
+          <p class="cd-question-title">Question:</p>
+          <p>
+            Suppose Beth contacts the individuals to ask their permission, and one-third of them respond giving 
+            permission, one-third respond denying permission, and one-third do not respond. Beth claims that at 
+            least one-half of the individuals are needed to make a valid study. What options are available to Beth?
+          </p>
+
+          <p class="cd-answer-label">Ethically acceptable options:</p>
+          <ul>
+            <li>
+              <strong>Use only data from those who gave explicit permission:</strong> This respects autonomy and 
+              informed consent, although it may reduce the sample size below her ideal threshold.
+            </li>
+            <li>
+              <strong>Send a follow-up request (through appropriate channels):</strong> A second, clearly worded 
+              reminder—possibly sent by the Records department or via an official channel—may improve the response 
+              rate without pressuring individuals.
+            </li>
+            <li>
+              <strong>Revise the research design:</strong> Beth could adjust her methodology, refine her research 
+              questions, or use anonymised/aggregated data so that she can work ethically with a smaller or 
+              differently structured sample.
+            </li>
+            <li>
+              <strong>Consult an ethics committee:</strong> She may seek guidance on whether any form of non-response 
+              can be used in a limited, anonymised way, or whether the study should be redesigned or scaled back.
+            </li>
+          </ul>
+
+          <p class="cd-answer-label">Options that are not ethically acceptable:</p>
+          <ul>
+            <li>
+              Treating non-response as implied consent and including those individuals in the study.
+            </li>
+            <li>
+              Reusing identifiable data from people who explicitly denied permission.
+            </li>
+            <li>
+              Pressuring individuals who refused, or repeatedly contacting non-respondents in a way that becomes intrusive.
+            </li>
+          </ul>
+          <p>
+            The key principle is that silence does not equal consent. Beth should prioritise respect for individual 
+            decisions, even if that means compromising on her original sample size or adapting her research design.
+          </p>
+        </div>
+      </section>
+
+      <!-- Summary & Principles -->
+      <section id="summary" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Summary of Key Ethical Principles</h3>
+          </div>
+          <p class="cd-lead">
+            This case highlights how everyday decisions about data access and research can raise fundamental 
+            questions of privacy, consent, and professional duty.
+          </p>
+          <ul class="cd-summary-list">
+            <li>
+              <strong>Confidentiality:</strong> Staff like Ricardo must protect confidential information and 
+              only disclose it in line with formal policies and legal requirements.
+            </li>
+            <li>
+              <strong>Informed consent:</strong> Individuals should have control over whether their personal 
+              data is used for research, and non-response cannot be treated as consent.
+            </li>
+            <li>
+              <strong>Purpose limitation:</strong> Data collected for one purpose (e.g. taxation) should not be 
+              repurposed for research without clear justification, safeguards, and permissions.
+            </li>
+            <li>
+              <strong>Data minimisation:</strong> Researchers and data custodians should always ask whether 
+              identifiable data is truly necessary, or whether anonymous or aggregated data would suffice.
+            </li>
+            <li>
+              <strong>Professional responsibility and integrity:</strong> Both Ricardo and Beth have duties to act 
+              within their roles, follow ethical and legal guidelines, and place the rights and interests of data 
+              subjects ahead of convenience.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Learning Outcomes -->
+      <section id="learning-outcomes" class="section">
+        <div class="section-muted">
+          <div class="cd-card-header">
+            <h3>Link to Module Learning Outcomes</h3>
+          </div>
+          <p class="cd-lead">
+            This case study supports my development in recognising and evaluating ethical issues in computing practice.
+          </p>
+
+          <table class="cd-lo-table">
+            <thead>
+              <tr>
+                <th>Module Learning Outcome</th>
+                <th>How this case provides evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Evaluate ethical, legal, social, and professional issues related to computing.
+                </td>
+                <td>
+                  By analysing Ricardo’s and Beth’s responsibilities, I identify how privacy, consent, and role-based 
+                  authority shape ethical decision-making in real-world data scenarios.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Apply ethical reasoning to practical case studies.
+                </td>
+                <td>
+                  The structured answers to the four questions show how abstract principles (such as confidentiality 
+                  and autonomy) can be applied to concrete dilemmas in handling government-held personal data.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Reflect on professional responsibilities in the context of data and research.
+                </td>
+                <td>
+                  This activity demonstrates awareness that computing and data roles are not purely technical; they 
+                  involve safeguarding public trust and ensuring that research practices respect the rights of individuals.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Abdullah Alshibli · Research Methods &amp; Professional Practice e-Portfolio</p>
+</footer>
+</body>
+</html>
